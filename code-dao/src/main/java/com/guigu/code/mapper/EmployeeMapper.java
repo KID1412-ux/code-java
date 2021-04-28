@@ -9,4 +9,5 @@ import com.guigu.code.pojo.Employee;
  * @Date 2021/4/26 21:04
  */
 public interface EmployeeMapper extends BaseMapper<Employee> {
+        Employee denglu(String employeeNo,String password);
 }
