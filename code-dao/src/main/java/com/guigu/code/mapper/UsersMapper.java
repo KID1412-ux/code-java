@@ -9,4 +9,5 @@ import com.guigu.code.pojo.Users;
  * @Date 2021/4/26 21:18
  */
 public interface UsersMapper extends BaseMapper<Users> {
+    Users userLogin(String userName ,String password);
 }
