@@ -54,5 +54,11 @@
             <artifactId>code-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!--Junit-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

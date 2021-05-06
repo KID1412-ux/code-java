@@ -93,5 +93,11 @@ public class Goods {
     @TableField("third_kind_name")
     private String thirdKindName;
 
+    /**
+     * 供应商id，外键，0该商品为商城所有，其他供应商id该商品为其所对应的供应商所有
+     */
+    @TableField("supplier_id")
+    private String supplierId;
+
 
 }
