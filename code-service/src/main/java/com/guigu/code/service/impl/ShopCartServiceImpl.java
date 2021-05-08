@@ -29,8 +29,8 @@ public class ShopCartServiceImpl extends ServiceImpl<ShopCartMapper, ShopCart> i
 
     @Override
     public int count(MyShopCart myShopCart) {
-        int total = this.shopCartMapper.count(myShopCart);
-        return total;
+        Integer total = this.shopCartMapper.count(myShopCart);
+        return total == null ? 0 : total;
     }
 
 }
