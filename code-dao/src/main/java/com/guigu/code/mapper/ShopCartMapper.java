@@ -24,5 +24,5 @@ public interface ShopCartMapper extends BaseMapper<ShopCart> {
      * @param myShopCart 查询条件
      * @return
      */
-    int count(MyShopCart myShopCart);
+    Integer count(MyShopCart myShopCart);
 }

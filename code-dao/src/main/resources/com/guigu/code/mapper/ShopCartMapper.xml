@@ -11,7 +11,7 @@
         </where>
         ORDER BY sc.`id` DESC
     </select>
-    <select id="count" parameterType="com.guigu.code.pojo.MyShopCart" resultType="int">
+    <select id="count" parameterType="com.guigu.code.pojo.MyShopCart" resultType="integer">
         SELECT SUM(sc.`amount`) FROM `shop_cart` sc LEFT JOIN `goods` g ON sc.`goods_id` = g.`id`
         <where>
             sc.`user_id` = #{userId} AND g.`supplier_id` = 0
