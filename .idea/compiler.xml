@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="code-service" />
+        <module name="code-common" />
+        <module name="code-dao" />
+        <module name="code-domain" />
+        <module name="code-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="code-common" target="8" />
+      <module name="code-dao" target="8" />
+      <module name="code-domain" target="8" />
+      <module name="code-java" target="8" />
+      <module name="code-service" target="8" />
+      <module name="code-web" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
