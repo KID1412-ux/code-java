@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guigu.code.pojo.MyShopCart;
 import com.guigu.code.pojo.ShopCart;
 import com.guigu.code.pojo.UserOrder;
+import com.guigu.code.pojo.Users;
 import com.guigu.code.service.ShopCartService;
 import com.guigu.code.service.UserOrderService;
+import com.guigu.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +32,11 @@ public class ShopCartController {
     @Autowired
     private UserOrderService userOrderService;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * 连接查询
-     *
      * @param myShopCart 查询条件
      * @return
      */
@@ -44,7 +48,6 @@ public class ShopCartController {
 
     /**
      * 统计当前用户购物车的商品总数
-     *
      * @param myShopCart 查询条件
      * @return
      */
@@ -56,7 +59,6 @@ public class ShopCartController {
 
     /**
      * 根据购物车id删除
-     *
      * @param id
      * @return
      */
@@ -68,7 +70,6 @@ public class ShopCartController {
 
     /**
      * 批量删除
-     *
      * @param ids 复数购物车id
      * @return
      */
@@ -80,7 +81,6 @@ public class ShopCartController {
 
     /**
      * 根据用户id删除
-     *
      * @param userId
      * @return
      */
@@ -93,8 +93,7 @@ public class ShopCartController {
     }
 
     /**
-     * 根据id修改购买数量
-     *
+     * 根据id修改购物车信息
      * @param shopCart
      * @return
      */
@@ -108,7 +107,6 @@ public class ShopCartController {
      * 判断当前用户是否已经将某商品加入购物车，
      * 如果已经加入就进行购买数量的累加，
      * 如何还未加入则进行数据的插入
-     *
      * @param shopCart
      * @return
      */
@@ -131,9 +129,56 @@ public class ShopCartController {
         }
     }
 
+    /**
+     * 往用户订单表中插入一条新的数据
+     * @param userOrder
+     * @return
+     */
     @RequestMapping("saveUserOrder")
     public int saveUserOrder(UserOrder userOrder) {
         boolean result = this.userOrderService.save(userOrder);
         return userOrder.getId();
+    }
+
+    /**
+     * 根据用户id查询单个用户信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("queryUser")
+    public Users queryUser(int id) {
+        QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        List<Users> users = this.userService.list(queryWrapper);
+        if (users.size() > 0) {
+            Users user = users.get(0);
+            return user;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 查询商户审核状态已审核通过的商户信息
+     * @return
+     */
+    @RequestMapping("queryMerchant")
+    public List<Users> queryMerchant() {
+        QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("merchant_audit_status", "1");
+        queryWrapper.eq("merchant_stats", "1");
+        List<Users> users = this.userService.list(queryWrapper);
+        return users;
+    }
+
+    /**
+     * 根据用户id修改用户信息
+     * @param users
+     * @return
+     */
+    @RequestMapping("updateUser")
+    public boolean updateUser(Users users) {
+        boolean result = this.userService.updateById(users);
+        return result;
     }
 }

@@ -63,7 +63,7 @@ public class Users {
      * 提货商户id，外键
      */
     @TableField("merchant_id")
-    private Integer merchantId;
+        private Integer merchantId;
 
     /**
      * 用户类型，0用户，1商户，2供应商
@@ -102,7 +102,7 @@ public class Users {
     private String deliveryAddress;
 
     /**
-     * 商户审核状态，0已提交，1已审核
+     * 商户审核状态，0已提交，1审核通过，2审核不通过
      */
     @TableField("merchant_audit_status")
     private String merchantAuditStatus;
@@ -132,7 +132,7 @@ public class Users {
     private String supplierAddress;
 
     /**
-     * 供应商审核状态，0已提交，1已审核
+     * 供应商审核状态，0已提交，1审核通过，2审核不通过
      */
     @TableField("supplier_audit_status")
     private String supplierAuditStatus;
