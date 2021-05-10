@@ -2,16 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.code.mapper.UsersMapper">
     <select id="selectallmerchant" resultType="com.guigu.code.pojo.Users">
-        SELECT * FROM users WHERE TYPE=1;
+        SELECT * FROM users WHERE merchant_audit_status =0;
     </select>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.guigu.code.mapper.UsersMapper">
+
     <select id="userLogin" parameterType="string" resultType="com.guigu.code.pojo.Users">
         SELECT * FROM users WHERE user_name=#{param1} ;
     </select>
     <insert id="insertUser" parameterType="com.guigu.code.pojo.Users">
         INSERT INTO users(user_name,PASSWORD,user_nickname,birthday,sex,phone,TYPE,user_stats) VALUES(#{userName},#{password},#{userNickname},#{birthday},#{sex},#{phone},#{type},#{userStats})
     </insert>
+
+    <update id="pass" parameterType="java.lang.Integer">
+        UPDATE users SET merchant_audit_status =1 , type=1,merchant_id=#{param1},merchant_stats=0 WHERE id=#{param1};
+    </update>
+
+    <update id="fail" parameterType="java.lang.Integer">
+        UPDATE users SET merchant_audit_status =2 WHERE merchant_id=#{param1};
+    </update>
+
+    <select id="selectmerchant" resultType="com.guigu.code.pojo.Users">
+        SELECT * FROM users WHERE TYPE=1;
+    </select>
+
+    <select id="selectbymerchantId" resultType="com.guigu.code.pojo.Users">
+        SELECT * FROM users WHERE merchant_id=#{param1};
+    </select>
+
+    <update id="updatemerchant" parameterType="com.guigu.code.pojo.Users">
+        UPDATE users SET merchant_name=#{merchantName} ,merchant_describe=#{merchantDescribe} ,merchant_phone=#{merchantPhone} ,delivery_address=#{deliveryAddress} ,merchant_stats=#{merchantStats} WHERE merchant_id=#{merchantId}
+    </update>
 </mapper>
