@@ -1,5 +1,6 @@
 package com.guigu.code.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.guigu.code.dto.users.UserOrderDto;
 import com.guigu.code.mapper.UserOrderMapper;
 import com.guigu.code.pojo.MyUserOrder;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserOrderServiceImpl implements UserOrderService {
+public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, MyUserOrder> implements UserOrderService {
     @Autowired
     private UserOrderMapper userOrderMapper;
 
