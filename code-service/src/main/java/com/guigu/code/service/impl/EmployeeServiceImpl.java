@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
+
     @Override
     public Employee denglu(String employeeNo, String password) {
         Employee employee = employeeMapper.denglu(employeeNo, password);

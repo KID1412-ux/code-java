@@ -24,4 +24,9 @@ public class MyShopCart extends ShopCart {
     @TableField("image_url")
     private String imageUrl;
 
+    /**
+     * 购物车中当前商品是否选中
+     */
+    @TableField(exist = false)
+    private boolean isCheck = false;
 }
