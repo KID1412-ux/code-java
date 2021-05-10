@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.code.mapper.ShopCartMapper">
-    <select id="queryList" resultType="com.guigu.code.pojo.MyShopCart">
-        SELECT sc.*, g.`goods_name`, g.`image_url` FROM `shop_cart` sc LEFT JOIN `goods` g ON sc.`goods_id` = g.`id` ORDER BY sc.`id` DESC
+    <select id="query" parameterType="com.guigu.code.pojo.MyShopCart" resultType="com.guigu.code.pojo.MyShopCart">
+        SELECT sc.*, g.`goods_name`, g.`image_url` FROM `shop_cart` sc LEFT JOIN `goods` g ON sc.`goods_id` = g.`id`
+        <where>
+            sc.`user_id` = #{userId} AND g.`supplier_id` = 0
+            <if test="goodsName != '' and goodsName != null">
+                AND g.`goods_name` LIKE CONCAT('%', #{goodsName}, '%')
+            </if>
+        </where>
+        ORDER BY sc.`id` DESC
+    </select>
+    <select id="count" parameterType="com.guigu.code.pojo.MyShopCart" resultType="integer">
+        SELECT SUM(sc.`amount`) FROM `shop_cart` sc LEFT JOIN `goods` g ON sc.`goods_id` = g.`id`
+        <where>
+            sc.`user_id` = #{userId} AND g.`supplier_id` = 0
+            <if test="goodsName != '' and goodsName != null">
+                AND g.`goods_name` LIKE CONCAT('%', #{goodsName}, '%')
+            </if>
+        </where>
+        ORDER BY sc.`id` DESC
     </select>
 </mapper>

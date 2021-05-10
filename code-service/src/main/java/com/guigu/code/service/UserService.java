@@ -2,6 +2,8 @@ package com.guigu.code.service;
 
 import com.guigu.code.pojo.Users;
 
+import java.util.List;
+
 public interface UserService {
 
     Users userLogin (String userName,String password);
@@ -9,4 +11,17 @@ public interface UserService {
     int insertUser(Users user);
 
     Users selectOneUser(String userName);
+    //查询所有的商户审核信息
+    List<Users> selectallmerchant();
+
+    //通过商户审核
+    int pass(Integer id);
+    //不通过商户审核
+    int fail(Integer id);
+    //查询所有商户
+    List<Users> selectmerchant();
+    //通过商户ID查询商户
+    Users selectbymerchantId(Integer id);
+    //修改商户信息
+    int updatemerchant(Users users);
 }

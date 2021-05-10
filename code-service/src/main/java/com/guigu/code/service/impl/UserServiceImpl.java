@@ -6,6 +6,8 @@ import com.guigu.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -36,5 +38,37 @@ public class UserServiceImpl implements UserService {
             return users;
         }
         return null;
+    }
+
+    @Override
+    public List<Users> selectallmerchant() {
+        List<Users> users = usersMapper.selectallmerchant();
+        return users;
+    }
+
+    @Override
+    public int pass(Integer id) {
+        return usersMapper.pass(id);
+    }
+
+    @Override
+    public int fail(Integer id) {
+        return usersMapper.fail(id);
+    }
+
+    @Override
+    public List<Users> selectmerchant() {
+        List<Users> list = usersMapper.selectmerchant();
+        return list;
+    }
+
+    @Override
+    public Users selectbymerchantId(Integer id) {
+        return usersMapper.selectbymerchantId(id);
+    }
+
+    @Override
+    public int updatemerchant(Users users) {
+        return usersMapper.updatemerchant(users);
     }
 }
