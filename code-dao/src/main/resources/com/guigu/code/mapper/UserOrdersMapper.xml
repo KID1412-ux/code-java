@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.UserOrderMapper">
+    <select id="selectAllUserOrder" parameterType="string" resultType="com.guigu.code.pojo.MyUserOrder">
+        SELECT uo.*, uod.order_id,uod.order_id,uod.goods_id,uod.goods_amount,uod.goods_price FROM user_order uo INNER JOIN user_order_detail uod ON uo.id=uod.order_id
+        <where>
+            uo.user_id=#{userId}
+        </where>
+    </select>
+    <select id="selectUserOrdersByDto" parameterType="com.guigu.code.dto.users.UserOrderDto" resultType="com.guigu.code.pojo.MyUserOrder">
+        SELECT uo.*, uod.order_id,uod.order_id,uod.goods_id,uod.goods_amount,uod.goods_price FROM user_order uo INNER JOIN user_order_detail uod ON uo.id=uod.order_id
+        <where>
+            uo.user_id=#{userId}
+            <if test="orderNumber != null and orderNumber != ''">
+                and uo.order_number like concat('%',#{orderNumber},'%')
+            </if>
+            <if test="orderStats != null and orderStats != ''">
+                and uo.order_stats =#{orderStats}
+            </if>
+        </where>
+    </select>
+</mapper>
