@@ -1,5 +1,6 @@
 package com.guigu.code.controller;
 
+import com.guigu.code.pojo.Loginformation;
 import com.guigu.code.pojo.Users;
 import com.guigu.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class UserController {
     }
 
     /*查询所有商户审核信息*/
+    /*查询所有供应商审核信息*/
     @RequestMapping("selectallmerchant")
     @ResponseBody
     public List<Users> selectallmerchant(){
@@ -88,6 +90,57 @@ public class UserController {
     public String updatemerchant(Users users){
         System.out.println(users);
         int updatemerchant = userService.updatemerchant(users);
+        return "成功";
+    }
+
+    @RequestMapping("passsupplier")
+    @ResponseBody
+    /*通过供应商审核*/
+    public String passsupplier(Integer id){
+        int passsupplier = userService.passsupplier(id);
+        return "成功";
+    }
+    /*不通过供应商审核*/
+    @RequestMapping("failsupplier")
+    @ResponseBody
+    public String failsupplier(Integer id){
+        int failsupplier=userService.failsupplier(id);
+        return "不通过";
+    }
+    /*查询所有供应商审核信息*/
+    @RequestMapping("selectallsupplier")
+    @ResponseBody
+    public List<Users> selectallsupplier(){
+        List<Users> users = userService.selectallsupplier();
+        return users;
+    }
+    /*查询所有的供应商*/
+    @RequestMapping("selectsupplier")
+    @ResponseBody
+    public List<Users> selectsupplier(){
+        List<Users> users=userService.selectsupplier();
+        return users;
+    }
+    /*根据ID查询供应商*/
+    @RequestMapping("selectsupplierbyid")
+    @ResponseBody
+    public Users selectsupplierbyid(Integer id){
+        Users users = userService.selectsupplierbyid(id);
+        return users;
+    }
+    /*修改供应商信息*/
+    @RequestMapping("updatesupplier")
+    @ResponseBody
+    public String updatesupplier(Users users){
+        int updatesupplier = userService.updatesupplier(users);
+        return "成功";
+    }
+    /*不通过反馈信息*/
+    @RequestMapping("insertloginformation")
+    @ResponseBody
+    public String insertloginformation(Loginformation log){
+        System.out.println(log);
+        int i = userService.insertloginformation(log);
         return "成功";
     }
 }

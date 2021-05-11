@@ -1,6 +1,7 @@
 package com.guigu.code.service.impl;
 
 import com.guigu.code.mapper.UsersMapper;
+import com.guigu.code.pojo.Loginformation;
 import com.guigu.code.pojo.Users;
 import com.guigu.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,4 +72,43 @@ public class UserServiceImpl implements UserService {
     public int updatemerchant(Users users) {
         return usersMapper.updatemerchant(users);
     }
+
+    @Override
+    public List<Users> selectallsupplier() {
+        List<Users> selectallsupplier = usersMapper.selectallsupplier();
+        return selectallsupplier;
+    }
+
+    @Override
+    public int passsupplier(Integer id) {
+        return usersMapper.passsupplier(id);
+    }
+
+    @Override
+    public int failsupplier(Integer id) {
+        return usersMapper.failsupplier(id);
+    }
+
+    @Override
+    public List<Users> selectsupplier() {
+        List<Users> selectsupplier = usersMapper.selectsupplier();
+        return selectsupplier;
+    }
+
+    @Override
+    public Users selectsupplierbyid(Integer id) {
+        return usersMapper.selectsupplierbyid(id);
+    }
+
+    @Override
+    public int updatesupplier(Users users) {
+        return usersMapper.updatesupplier(users);
+    }
+
+    @Override
+    public int insertloginformation(Loginformation log) {
+        return usersMapper.insertloginformation(log);
+    }
+
+
 }

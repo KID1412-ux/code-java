@@ -31,4 +31,32 @@
     <update id="updatemerchant" parameterType="com.guigu.code.pojo.Users">
         UPDATE users SET merchant_name=#{merchantName} ,merchant_describe=#{merchantDescribe} ,merchant_phone=#{merchantPhone} ,delivery_address=#{deliveryAddress} ,merchant_stats=#{merchantStats} WHERE merchant_id=#{merchantId}
     </update>
+
+    <update id="passsupplier" parameterType="java.lang.Integer">
+        UPDATE users SET supplier_audit_status =1 , TYPE=2,supplier_stats=0 WHERE id=#{param1};
+    </update>
+
+    <update id="failsupplier" parameterType="java.lang.Integer">
+        UPDATE users SET supplier_audit_status =2 WHERE id=#{param1};
+    </update>
+
+    <select id="selectallsupplier" resultType="com.guigu.code.pojo.Users">
+        SELECT * FROM users WHERE supplier_audit_status =0;
+    </select>
+
+    <select id="selectsupplier" resultType="com.guigu.code.pojo.Users">
+        SELECT * FROM users WHERE TYPE=2;
+    </select>
+
+    <select id="selectsupplierbyid" parameterType="java.lang.Integer" resultType="com.guigu.code.pojo.Users">
+        SELECT * FROM users WHERE id=#{param1};
+    </select>
+
+    <update id="updatesupplier" parameterType="com.guigu.code.pojo.Users">
+        UPDATE users SET supplier_name=#{supplierName},supplier_phone=#{supplierPhone},supplier_address=#{supplierAddress},supplier_stats=#{supplierStats} WHERE id=#{id}
+    </update>
+
+    <insert id="insertloginformation" parameterType="com.guigu.code.pojo.Loginformation">
+        INSERT INTO log_information VALUE(NULL,#{parentID},#{logtype},#{logdetail});
+    </insert>
 </mapper>

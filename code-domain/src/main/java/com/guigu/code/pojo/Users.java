@@ -136,7 +136,7 @@ public class Users {
     private String supplierAddress;
 
     /**
-     * 供应商审核状态，0已提交，1已审核
+     * 供应商审核状态，0已提交，1通过，2未通过
      */
     @TableField("supplier_audit_status")
     private String supplierAuditStatus;
