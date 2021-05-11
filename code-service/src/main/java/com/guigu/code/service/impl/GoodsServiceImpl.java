@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements GoodsService {
+public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements GoodsService {
 
     @Autowired
     private GoodsMapper goodsMapper;
@@ -30,6 +30,5 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     public List<Goods> selectGoodsByFirstKindId(Integer id) {
         return goodsMapper.selectGoodsByFirstKindId(id);
     }
-
 
 }

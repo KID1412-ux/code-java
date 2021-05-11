@@ -1,11 +1,13 @@
 package com.guigu.code.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.MyShopCart;
 import com.guigu.code.pojo.ShopCart;
 import com.guigu.code.pojo.UserOrder;
 import com.guigu.code.pojo.UserOrderDetail;
 import com.guigu.code.pojo.Users;
+import com.guigu.code.service.GoodsService;
 import com.guigu.code.service.ShopCartService;
 import com.guigu.code.service.UserOrderDetailService;
 import com.guigu.code.service.UserOrderService;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -42,6 +46,9 @@ public class ShopCartController {
 
     @Autowired
     private UserOrderDetailService userOrderDetailService;
+
+    @Autowired
+    private GoodsService goodsService;
 
     /**
      * 连接查询
@@ -132,8 +139,7 @@ public class ShopCartController {
             newCart.setAmount(newAmount);
             return this.updateById(newCart);
         } else {
-            boolean result = this.shopCartService.save(shopCart);
-            return result;
+            return this.shopCartService.save(shopCart);
         }
     }
 
@@ -196,16 +202,57 @@ public class ShopCartController {
         return result;
     }
 
-
+    /**
+     * 根据购物车id进行复数查询
+     * @param ids
+     * @return
+     */
     @RequestMapping("listByIds")
     public Collection<ShopCart> listByIds(@RequestBody List<Integer> ids) {
         Collection<ShopCart> shopCarts = this.shopCartService.listByIds(ids);
         return shopCarts;
     }
 
+    /**
+     * 往用户订单详情表中批量插入数据
+     * @param list
+     * @return
+     */
     @RequestMapping("saveUserOrderDetail")
     public boolean saveUserOrderDetail(@RequestBody List<UserOrderDetail> list) {
         boolean result = this.userOrderDetailService.saveBatch(list);
+        return result;
+    }
+
+    /**
+     * 根据商品id批量修改商品销量
+     * @param goods
+     * @return
+     */
+    @RequestMapping("updateGood")
+    public boolean updateGood(@RequestBody List<Goods> goods) {
+        List<Integer> ids = new ArrayList<>();
+        for (int i = 0; i < goods.size(); i++) {
+            Goods good = goods.get(i);
+            ids.add(good.getId());
+        }
+        Collection<Goods> collection = this.goodsService.listByIds(ids);
+        ArrayList<Goods> list = new ArrayList<>();
+        Iterator<Goods> iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            Goods good = iterator.next();
+            Goods newGood = new Goods();
+            newGood.setId(good.getId());
+            for (int i = 0; i < goods.size(); i++) {
+                Goods obj = goods.get(i);
+                if (obj.getId() == good.getId()) {
+                    newGood.setGoodsSales(good.getGoodsSales() + obj.getGoodsSales());
+                    break;
+                }
+            }
+            list.add(newGood);
+        }
+        boolean result = this.goodsService.updateBatchById(list);
         return result;
     }
 }

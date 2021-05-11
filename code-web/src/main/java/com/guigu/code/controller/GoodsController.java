@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("Goods")
@@ -20,19 +19,19 @@ public class GoodsController {
 
     @RequestMapping("rexiao")
     @CrossOrigin
-    public List<Goods> shouye(){
+    public List<Goods> shouye() {
         List<Goods> goods = goodsService.selectPartGoods();
         return goods;
     }
 
     @RequestMapping("selectGoodById")
     @CrossOrigin
-    public Goods selectGoodById(String id){
+    public Goods selectGoodById(String id) {
         System.out.println("-------------");
         System.out.println(id);
         System.out.println("---------------------");
 
-        Integer goodId=Integer.parseInt(id);
+        Integer goodId = Integer.parseInt(id);
         Goods good = goodsService.selectGoodById(goodId);
         System.out.println(good);
         return good;
@@ -40,16 +39,16 @@ public class GoodsController {
 
     @RequestMapping("tuijian")
     @CrossOrigin
-    public HashMap<String,Object> tuijian(){
+    public HashMap<String, Object> tuijian() {
         HashMap<String, Object> map = new HashMap<String, Object>();
         List<Goods> dianqi = goodsService.selectGoodsByFirstKindId(1);
-        map.put("dianqi",dianqi);
+        map.put("dianqi", dianqi);
         List<Goods> meizhuang = goodsService.selectGoodsByFirstKindId(3);
-        map.put("meizhuang",meizhuang);
+        map.put("meizhuang", meizhuang);
         List<Goods> bangong = goodsService.selectGoodsByFirstKindId(4);
-        map.put("bangong",bangong);
+        map.put("bangong", bangong);
         List<Goods> shipin = goodsService.selectGoodsByFirstKindId(5);
-        map.put("shipin",shipin);
+        map.put("shipin", shipin);
         System.out.println("----------------");
         System.out.println(map);
         System.out.println("----------------");
