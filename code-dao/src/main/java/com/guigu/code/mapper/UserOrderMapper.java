@@ -12,7 +12,7 @@ import java.util.List;
  * @Author KID1412
  * @Date 2021/4/26 21:17
  */
-public interface UserOrderMapper extends BaseMapper<MyUserOrder> {
+public interface UserOrderMapper extends BaseMapper<UserOrder> {
     List<MyUserOrder> selectAllUserOrder(Integer userId);
     List<MyUserOrder> selectUserOrdersByDto(UserOrderDto dto);
 }

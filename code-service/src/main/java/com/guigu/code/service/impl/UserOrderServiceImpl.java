@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, MyUserOrder> implements UserOrderService {
+public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder> implements UserOrderService {
     @Autowired
     private UserOrderMapper userOrderMapper;
 

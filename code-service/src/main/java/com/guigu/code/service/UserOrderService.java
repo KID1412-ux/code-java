@@ -7,7 +7,7 @@ import com.guigu.code.pojo.UserOrder;
 
 import java.util.List;
 
-public interface UserOrderService extends IService<MyUserOrder> {
+public interface UserOrderService extends IService<UserOrder> {
     List<MyUserOrder> selectAllUserOrder(Integer userId);
 
     List<MyUserOrder> selectUserOrdersByDto(UserOrderDto dto);
