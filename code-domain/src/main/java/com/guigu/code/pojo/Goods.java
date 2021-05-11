@@ -52,6 +52,12 @@ public class Goods {
     private Double goodsPrice;
 
     /**
+     * 单位
+     */
+    @TableField("goods_unit")
+    private String goodsUnit;
+
+    /**
      * 状态，0销售，1下架
      */
     @TableField("goods_state")

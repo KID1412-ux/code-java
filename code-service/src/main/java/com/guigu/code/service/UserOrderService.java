@@ -1,18 +1,16 @@
-package com.guigu.code.mapper;
+package com.guigu.code.service;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.guigu.code.dto.users.UserOrderDto;
 import com.guigu.code.pojo.MyUserOrder;
 import com.guigu.code.pojo.UserOrder;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author KID1412
- * @Date 2021/4/26 21:17
- */
-public interface UserOrderMapper extends BaseMapper<UserOrder> {
+public interface UserOrderService extends IService<UserOrder> {
     List<MyUserOrder> selectAllUserOrder(Integer userId);
+
     List<MyUserOrder> selectUserOrdersByDto(UserOrderDto dto);
+
+
 }

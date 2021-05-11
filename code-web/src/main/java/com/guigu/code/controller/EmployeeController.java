@@ -17,7 +17,7 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
-
+    //登录方法
     @RequestMapping("/denglu")
     @ResponseBody
     public Employee denglu(String employeeNo,String password){

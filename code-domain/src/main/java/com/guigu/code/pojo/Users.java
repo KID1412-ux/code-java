@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -45,6 +47,8 @@ public class Users {
      * 出生日期
      */
     @TableField("birthday")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     /**
@@ -102,7 +106,7 @@ public class Users {
     private String deliveryAddress;
 
     /**
-     * 商户审核状态，0已提交，1已审核
+     * 商户审核状态，0已提交，1已通过,2，未通过
      */
     @TableField("merchant_audit_status")
     private String merchantAuditStatus;
@@ -132,7 +136,7 @@ public class Users {
     private String supplierAddress;
 
     /**
-     * 供应商审核状态，0已提交，1已审核
+     * 供应商审核状态，0已提交，1通过，2未通过
      */
     @TableField("supplier_audit_status")
     private String supplierAuditStatus;
