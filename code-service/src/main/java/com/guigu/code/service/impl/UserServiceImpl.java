@@ -1,5 +1,6 @@
 package com.guigu.code.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.guigu.code.mapper.UsersMapper;
 import com.guigu.code.pojo.Loginformation;
 import com.guigu.code.pojo.Users;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UsersMapper, Users> implements UserService {
     @Autowired
     private UsersMapper usersMapper;
     @Override
