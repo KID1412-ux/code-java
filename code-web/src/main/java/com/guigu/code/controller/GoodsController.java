@@ -44,8 +44,8 @@ public class GoodsController {
         HashMap<String, Object> map = new HashMap<String, Object>();
         List<Goods> dianqi = goodsService.selectGoodsByFirstKindId(1);
         map.put("dianqi",dianqi);
-        List<Goods> meizhuanag = goodsService.selectGoodsByFirstKindId(3);
-        map.put("meizhuang",meizhuanag);
+        List<Goods> meizhuang = goodsService.selectGoodsByFirstKindId(3);
+        map.put("meizhuang",meizhuang);
         List<Goods> bangong = goodsService.selectGoodsByFirstKindId(4);
         map.put("bangong",bangong);
         List<Goods> shipin = goodsService.selectGoodsByFirstKindId(5);
