@@ -4,4 +4,20 @@
     <select id="denglu" resultType="com.guigu.code.pojo.Employee" parameterType="java.lang.String">
         SELECT * FROM employee WHERE employee_no=#{param1} AND PASSWORD=#{param2};
     </select>
+
+    <select id="selectallemployee" resultType="com.guigu.code.pojo.Employee">
+        SELECT * FROM employee;
+    </select>
+
+    <select id="selectemployeebyid" resultType="com.guigu.code.pojo.Employee" parameterType="java.lang.Integer">
+        select * from employee WHERE id=#{param1};
+    </select>
+
+    <insert id="addemployee" parameterType="com.guigu.code.pojo.Employee">
+        INSERT INTO employee VALUE(NULL,#{employeeName},#{employeeNo},#{password},#{sex},#{phone},#{stats});
+    </insert>
+
+    <update id="updateemployee" parameterType="com.guigu.code.pojo.Employee">
+        UPDATE employee SET employee_name=#{employeeName},employee_no=#{employeeNo},PASSWORD=#{password},sex=#{sex},phone=#{phone},stats=#{stats} WHERE id=#{id};
+    </update>
 </mapper>

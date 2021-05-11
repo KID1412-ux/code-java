@@ -41,6 +41,8 @@ public class Employee {
 
     /**
      * 性别
+     * 0为男
+     * 1为女
      */
     @TableField("sex")
     private String sex;
