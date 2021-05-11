@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("Goods")
@@ -34,6 +36,24 @@ public class GoodsController {
         Goods good = goodsService.selectGoodById(goodId);
         System.out.println(good);
         return good;
+    }
+
+    @RequestMapping("tuijian")
+    @CrossOrigin
+    public HashMap<String,Object> tuijian(){
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        List<Goods> dianqi = goodsService.selectGoodsByFirstKindId(1);
+        map.put("dianqi",dianqi);
+        List<Goods> meizhuanag = goodsService.selectGoodsByFirstKindId(3);
+        map.put("meizhuang",meizhuanag);
+        List<Goods> bangong = goodsService.selectGoodsByFirstKindId(4);
+        map.put("bangong",bangong);
+        List<Goods> shipin = goodsService.selectGoodsByFirstKindId(5);
+        map.put("shipin",shipin);
+        System.out.println("----------------");
+        System.out.println(map);
+        System.out.println("----------------");
+        return map;
     }
 
 }

@@ -26,5 +26,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
         return goodsMapper.selectGoodById(id);
     }
 
+    @Override
+    public List<Goods> selectGoodsByFirstKindId(Integer id) {
+        return goodsMapper.selectGoodsByFirstKindId(id);
+    }
+
 
 }

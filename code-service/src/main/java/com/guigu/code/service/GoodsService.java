@@ -13,4 +13,7 @@ public interface GoodsService extends IService<Goods> {
     //根据ID查询商品详情
     Goods selectGoodById(Integer id);
 
+    //根据一级菜单id查询
+    List<Goods> selectGoodsByFirstKindId(Integer id);
+
 }

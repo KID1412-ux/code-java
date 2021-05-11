@@ -7,4 +7,7 @@
     <select id="selectGoodById" resultType="com.guigu.code.pojo.Goods" >
         SELECT * FROM goods WHERE id=#{id}
     </select>
+    <select id="selectGoodsByFirstKindId" resultType="com.guigu.code.pojo.Goods">
+        SELECT * FROM goods WHERE first_kind_id=#{id} GROUP BY goods_sales DESC LIMIT 4
+    </select>
 </mapper>
