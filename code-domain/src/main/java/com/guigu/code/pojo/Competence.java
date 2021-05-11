@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Description
  * @Author KID1412
@@ -32,6 +34,9 @@ public class Competence {
      */
     @TableField("competence_describe")
     private String competenceDescribe;
+
+
+    private List<Menus> menus;
 
 
 
