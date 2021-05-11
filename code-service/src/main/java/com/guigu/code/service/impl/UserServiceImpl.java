@@ -112,5 +112,4 @@ public class UserServiceImpl extends ServiceImpl<UsersMapper, Users> implements 
         return usersMapper.insertloginformation(log);
     }
 
-
 }
