@@ -36,8 +36,8 @@ public class UserOrderDetail {
     /**
      * 商品购买数量
      */
-    @TableField("amount")
-    private Integer amount;
+    @TableField("goods_amount")
+    private Integer goodsAmount;
 
     /**
      * 商品单价

@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guigu.code.pojo.MyShopCart;
 import com.guigu.code.pojo.ShopCart;
 import com.guigu.code.pojo.UserOrder;
+import com.guigu.code.pojo.UserOrderDetail;
 import com.guigu.code.pojo.Users;
 import com.guigu.code.service.ShopCartService;
+import com.guigu.code.service.UserOrderDetailService;
 import com.guigu.code.service.UserOrderService;
 import com.guigu.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @Description
@@ -34,6 +39,9 @@ public class ShopCartController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserOrderDetailService userOrderDetailService;
 
     /**
      * 连接查询
@@ -136,6 +144,12 @@ public class ShopCartController {
      */
     @RequestMapping("saveUserOrder")
     public int saveUserOrder(UserOrder userOrder) {
+        StringBuffer buffer = new StringBuffer("21043000");
+        String number = String.format("%04d", new Random().nextInt(9999));
+        buffer.append(number);
+        String orderNumber = buffer.toString();
+        userOrder.setOrderNumber(orderNumber);
+        userOrder.setCreateTime(new Date());
         boolean result = this.userOrderService.save(userOrder);
         return userOrder.getId();
     }
@@ -166,7 +180,7 @@ public class ShopCartController {
     public List<Users> queryMerchant() {
         QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("merchant_audit_status", "1");
-        queryWrapper.eq("merchant_stats", "1");
+        queryWrapper.eq("merchant_stats", "0");
         List<Users> users = this.userService.list(queryWrapper);
         return users;
     }
@@ -179,6 +193,19 @@ public class ShopCartController {
     @RequestMapping("updateUser")
     public boolean updateUser(Users users) {
         boolean result = this.userService.updateById(users);
+        return result;
+    }
+
+
+    @RequestMapping("listByIds")
+    public Collection<ShopCart> listByIds(@RequestBody List<Integer> ids) {
+        Collection<ShopCart> shopCarts = this.shopCartService.listByIds(ids);
+        return shopCarts;
+    }
+
+    @RequestMapping("saveUserOrderDetail")
+    public boolean saveUserOrderDetail(@RequestBody List<UserOrderDetail> list) {
+        boolean result = this.userOrderDetailService.saveBatch(list);
         return result;
     }
 }
