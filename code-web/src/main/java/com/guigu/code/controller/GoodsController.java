@@ -1,55 +1,58 @@
 package com.guigu.code.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.guigu.code.mapper.GoodsMapper;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/Goods")
-@CrossOrigin
+@RequestMapping("Goods")
 public class GoodsController {
+
     @Autowired
     private GoodsService goodsService;
 
-    @RequestMapping("/queryallGoods.action")
-//    @CrossOrigin
-    public IPage<Goods> queryallcartype(@RequestParam(value = "pageNo",defaultValue = "1") int pageNo,
-                                        @RequestParam(value = "pageSize",defaultValue = "5")int pageSize,
-                                        Goods goods){
-        QueryWrapper<Goods> queryWrapper =new QueryWrapper<Goods>();  // like %null%
-        if(!StringUtils.isEmpty(goods.getGoodsName())){
-            queryWrapper.like("goods_name",goods.getGoodsName());  // where  name like '%val%'
-        }
-        if(!StringUtils.isEmpty(goods.getGoodsName())){
-            queryWrapper.like("first_Kind_Id",goods.getFirstKindId());  // where  name like '%val%'
-        }
-        if(!StringUtils.isEmpty(goods.getGoodsName())){
-            queryWrapper.like("second_kind_id",goods.getSecondKindId());  // where  name like '%val%'
-        }
-        if(!StringUtils.isEmpty(goods.getGoodsName())){
-            queryWrapper.like("third_kind_id",goods.getThirdKindId());  // where  name like '%val%'
-        }
-        queryWrapper.orderByAsc("id");  //根据id列进行排序
-
-        IPage<Goods>  iPage= goodsService.page(new Page<Goods>(pageNo,pageSize),queryWrapper);
-        return iPage;
-    }
-    @RequestMapping("/queryByid.action")
-//    @CrossOrigin
-    public Goods queryByid(int id){
-        Goods goods=goodsService.getById(id);
+    @RequestMapping("rexiao")
+    @CrossOrigin
+    public List<Goods> shouye() {
+        List<Goods> goods = goodsService.selectPartGoods();
         return goods;
     }
+
+    @RequestMapping("selectGoodById")
+    @CrossOrigin
+    public Goods selectGoodById(String id) {
+        System.out.println("-------------");
+        System.out.println(id);
+        System.out.println("---------------------");
+
+        Integer goodId = Integer.parseInt(id);
+        Goods good = goodsService.selectGoodById(goodId);
+        System.out.println(good);
+        return good;
+    }
+
+    @RequestMapping("tuijian")
+    @CrossOrigin
+    public HashMap<String, Object> tuijian() {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        List<Goods> dianqi = goodsService.selectGoodsByFirstKindId(1);
+        map.put("dianqi", dianqi);
+        List<Goods> meizhuang = goodsService.selectGoodsByFirstKindId(3);
+        map.put("meizhuang", meizhuang);
+        List<Goods> bangong = goodsService.selectGoodsByFirstKindId(4);
+        map.put("bangong", bangong);
+        List<Goods> shipin = goodsService.selectGoodsByFirstKindId(5);
+        map.put("shipin", shipin);
+        System.out.println("----------------");
+        System.out.println(map);
+        System.out.println("----------------");
+        return map;
+    }
+
 }
