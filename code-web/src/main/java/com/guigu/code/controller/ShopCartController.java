@@ -2,12 +2,16 @@ package com.guigu.code.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guigu.code.pojo.Goods;
+import com.guigu.code.pojo.MerchantOrder;
+import com.guigu.code.pojo.MerchantOrderDetail;
 import com.guigu.code.pojo.MyShopCart;
 import com.guigu.code.pojo.ShopCart;
 import com.guigu.code.pojo.UserOrder;
 import com.guigu.code.pojo.UserOrderDetail;
 import com.guigu.code.pojo.Users;
 import com.guigu.code.service.GoodsService;
+import com.guigu.code.service.MerchantOrderDetailService;
+import com.guigu.code.service.MerchantOrderService;
 import com.guigu.code.service.ShopCartService;
 import com.guigu.code.service.UserOrderDetailService;
 import com.guigu.code.service.UserOrderService;
@@ -49,6 +53,12 @@ public class ShopCartController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private MerchantOrderService merchantOrderService;
+
+    @Autowired
+    private MerchantOrderDetailService merchantOrderDetailService;
 
     /**
      * 连接查询
@@ -160,6 +170,24 @@ public class ShopCartController {
         return userOrder.getId();
     }
 
+
+    /**
+     * 往商户订单表中插入一条新的数据
+     * @param merchantOrder
+     * @return
+     */
+    @RequestMapping("saveMerchantOrder")
+    public int saveMerchantOrder(MerchantOrder merchantOrder) {
+        StringBuffer buffer = new StringBuffer("21052000");
+        String number = String.format("%04d", new Random().nextInt(9999));
+        buffer.append(number);
+        String orderNumber = buffer.toString();
+        merchantOrder.setOrderNumber(orderNumber);
+        merchantOrder.setCreateTime(new Date());
+        boolean result = this.merchantOrderService.save(merchantOrder);
+        return merchantOrder.getId();
+    }
+
     /**
      * 根据用户id查询单个用户信息
      * @param id
@@ -221,6 +249,17 @@ public class ShopCartController {
     @RequestMapping("saveUserOrderDetail")
     public boolean saveUserOrderDetail(@RequestBody List<UserOrderDetail> list) {
         boolean result = this.userOrderDetailService.saveBatch(list);
+        return result;
+    }
+
+    /**
+     * 往商户订单详情表中批量插入数据
+     * @param list
+     * @return
+     */
+    @RequestMapping("saveMerchantOrderDetail")
+    public boolean saveMerchantOrderDetail(@RequestBody List<MerchantOrderDetail> list) {
+        boolean result = this.merchantOrderDetailService.saveBatch(list);
         return result;
     }
 
