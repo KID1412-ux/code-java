@@ -1,6 +1,7 @@
 package com.guigu.code.controller;
 
 import com.guigu.code.pojo.Goods;
+import com.guigu.code.pojo.GoodsWarehouse;
 import com.guigu.code.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
