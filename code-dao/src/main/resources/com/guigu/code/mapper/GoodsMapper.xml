@@ -10,4 +10,7 @@
     <select id="selectGoodsByFirstKindId" resultType="com.guigu.code.pojo.Goods">
         SELECT * FROM goods WHERE first_kind_id=#{id} and goods_state=0 GROUP BY goods_sales DESC LIMIT 4
     </select>
+    <select id="selectGoodsByGoodName" resultType="com.guigu.code.pojo.Goods">
+        SELECT * FROM goods WHERE goods_state=0 AND goods_describe LIKE #{name}
+    </select>
 </mapper>

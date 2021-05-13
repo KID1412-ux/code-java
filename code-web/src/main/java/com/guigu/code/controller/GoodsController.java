@@ -1,6 +1,7 @@
 package com.guigu.code.controller;
 
 import com.guigu.code.pojo.Goods;
+import com.guigu.code.pojo.GoodsWarehouse;
 import com.guigu.code.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("Goods")
@@ -27,15 +27,14 @@ public class GoodsController {
 
     @RequestMapping("selectGoodById")
     @CrossOrigin
-    public Goods selectGoodById(String id){
-        System.out.println("-------------");
-        System.out.println(id);
-        System.out.println("---------------------");
-
+    public HashMap<String,Object> selectGoodById(String id){
+        HashMap<String,Object> map=new HashMap<String,Object>();
         Integer goodId=Integer.parseInt(id);
         Goods good = goodsService.selectGoodById(goodId);
-        System.out.println(good);
-        return good;
+        GoodsWarehouse warehouse = goodsService.selectGoodsWarehouseByGoodsId(goodId);
+        map.put("good",good);
+        map.put("warehouse",warehouse);
+        return map;
     }
 
     @RequestMapping("tuijian")
@@ -50,10 +49,19 @@ public class GoodsController {
         map.put("bangong",bangong);
         List<Goods> shipin = goodsService.selectGoodsByFirstKindId(5);
         map.put("shipin",shipin);
-        System.out.println("----------------");
-        System.out.println(map);
-        System.out.println("----------------");
         return map;
+    }
+
+    @RequestMapping("Search")
+    @CrossOrigin
+    public List<Goods> Search(String search){
+        System.out.println(search);
+        String name="%"+search+"%";
+        List<Goods> GoodsSearch = goodsService.selectGoodsByGoodName(name);
+        System.out.println("-----------");
+        System.out.println(GoodsSearch);
+        System.out.println("-----------");
+        return GoodsSearch;
     }
 
 }

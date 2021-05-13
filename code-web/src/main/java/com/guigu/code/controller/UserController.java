@@ -143,4 +143,18 @@ public class UserController {
         int i = userService.insertloginformation(log);
         return "成功";
     }
+
+    //通过ID查询用户
+    @RequestMapping("selectUserByID")
+    @ResponseBody
+    public Users selectUserByID(String userID){
+        Integer ID=Integer.parseInt(userID);
+        Users users = userService.selectUserById(ID);
+
+        System.out.println("aaaaaaaaaaaaaaaaaa");
+        System.out.println(users);
+        System.out.println("aaaaaaaaaaaaaaaaaa");
+
+        return users;
+    }
 }

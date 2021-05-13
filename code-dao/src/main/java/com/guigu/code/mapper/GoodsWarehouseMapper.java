@@ -9,4 +9,8 @@ import com.guigu.code.pojo.GoodsWarehouse;
  * @Date 2021/4/26 21:10
  */
 public interface GoodsWarehouseMapper extends BaseMapper<GoodsWarehouse> {
+
+    //根据商品ID查询商品库存
+    GoodsWarehouse selectGoodsWarehouseByGoodsId(Integer id);
+
 }
