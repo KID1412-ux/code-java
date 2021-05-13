@@ -59,4 +59,8 @@
     <insert id="insertloginformation" parameterType="com.guigu.code.pojo.Loginformation">
         INSERT INTO log_information VALUE(NULL,#{parentID},#{logtype},#{logdetail});
     </insert>
+
+    <select id="selectUserById" resultType="com.guigu.code.pojo.Users">
+        SELECT * FROM users WHERE id=#{id}
+    </select>
 </mapper>

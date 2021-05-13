@@ -44,7 +44,8 @@ public interface UsersMapper extends BaseMapper<Users> {
     //修改供应商信息
     int updatesupplier(Users users);
 
-
+    //根据ID查询用户
+    Users selectUserById(Integer id);
 
     //不通过反馈信息
     int insertloginformation(Loginformation log);

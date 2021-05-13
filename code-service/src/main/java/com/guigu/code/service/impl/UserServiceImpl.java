@@ -112,4 +112,9 @@ public class UserServiceImpl extends ServiceImpl<UsersMapper, Users> implements 
         return usersMapper.insertloginformation(log);
     }
 
+    @Override
+    public Users selectUserById(Integer id) {
+        return usersMapper.selectUserById(id);
+    }
+
 }
