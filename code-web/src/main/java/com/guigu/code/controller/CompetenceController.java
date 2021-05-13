@@ -16,10 +16,11 @@ import java.util.List;
 public class CompetenceController {
     @Autowired
     private CompetenceService competenceService;
+
     //根据员工id查询该员工所拥有的权限
     @RequestMapping("/list")
     @ResponseBody
-    private List<Competence> selectbyemployeeid(Integer id){
+    private List<Competence> selectbyemployeeid(Integer id) {
         System.out.println(id);
         List<Competence> list = competenceService.selectbyemployeeid(id);
         return list;

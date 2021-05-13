@@ -90,7 +90,7 @@ public class UserController {
     public String updatemerchant(Users users){
         System.out.println(users);
         int updatemerchant = userService.updatemerchant(users);
-        return "成功";
+        return "修改成功";
     }
 
     @RequestMapping("passsupplier")
@@ -133,7 +133,7 @@ public class UserController {
     @ResponseBody
     public String updatesupplier(Users users){
         int updatesupplier = userService.updatesupplier(users);
-        return "成功";
+        return "修改成功";
     }
     /*不通过反馈信息*/
     @RequestMapping("insertloginformation")
