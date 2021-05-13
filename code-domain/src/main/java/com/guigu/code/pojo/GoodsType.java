@@ -25,7 +25,7 @@ public class GoodsType {
      * 类别名
      */
     @TableField("goods_type_name")
-    private String goodsTypeName;
+            private String goodsTypeName;
 
     /**
      * 父级分类id，外键

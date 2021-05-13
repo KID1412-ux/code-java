@@ -2,6 +2,7 @@ package com.guigu.code.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guigu.code.pojo.Goods;
+import com.guigu.code.pojo.GoodsWarehouse;
 import com.guigu.code.pojo.MerchantOrder;
 import com.guigu.code.pojo.MerchantOrderDetail;
 import com.guigu.code.pojo.MyShopCart;
@@ -10,6 +11,7 @@ import com.guigu.code.pojo.UserOrder;
 import com.guigu.code.pojo.UserOrderDetail;
 import com.guigu.code.pojo.Users;
 import com.guigu.code.service.GoodsService;
+import com.guigu.code.service.GoodsWarehouseService;
 import com.guigu.code.service.MerchantOrderDetailService;
 import com.guigu.code.service.MerchantOrderService;
 import com.guigu.code.service.ShopCartService;
