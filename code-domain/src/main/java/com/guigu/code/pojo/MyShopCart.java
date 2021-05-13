@@ -25,6 +25,12 @@ public class MyShopCart extends ShopCart {
     private String imageUrl;
 
     /**
+     * 当前商品库存数量
+     */
+    @TableField("goods_amount")
+    private Integer goodsAmount;
+
+    /**
      * 购物车中当前商品是否选中
      */
     @TableField(exist = false)
