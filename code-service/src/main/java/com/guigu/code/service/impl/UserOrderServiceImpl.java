@@ -6,6 +6,7 @@ import com.guigu.code.mapper.UserOrderMapper;
 import com.guigu.code.pojo.MyUserOrder;
 import com.guigu.code.pojo.MyUserOrderDetail;
 import com.guigu.code.pojo.UserOrder;
+import com.guigu.code.pojo.Users;
 import com.guigu.code.service.UserOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,10 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
         userOrderMapper.deleteOrder(orderId);
         userOrderMapper.deleteOrderDetail(orderId);
         return 0;
+    }
+
+    @Override
+    public List<Users> selectMerchants(Integer userId) {
+        return null;
     }
 }
