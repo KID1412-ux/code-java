@@ -1,7 +1,10 @@
 package com.guigu.code.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageInfo;
+import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.GoodsType;
+import com.guigu.code.pojo.MyGoods;
 import com.guigu.code.service.GoodsService;
 import com.guigu.code.service.GoodsTypeService;
 import com.guigu.code.utils.Node;
@@ -9,8 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +41,7 @@ public class GoodsDataMaintainController {
 
     /**
      * 展示所以的商品分类信息
+     *
      * @return
      */
     @RequestMapping("showType")
@@ -52,6 +61,7 @@ public class GoodsDataMaintainController {
 
     /**
      * 递归构造tree数据
+     *
      * @param nodes
      * @param parentId
      * @return
@@ -79,6 +89,7 @@ public class GoodsDataMaintainController {
 
     /**
      * 往商品分类表添加一条数据
+     *
      * @param goodsType
      * @return
      */
@@ -90,6 +101,7 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id修改商品分类信息
+     *
      * @param goodsType
      * @return
      */
@@ -101,6 +113,7 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id批量删除商品分类信息
+     *
      * @param ids
      * @return
      */
@@ -112,12 +125,103 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id删除商品分类信息
+     *
      * @param id
      * @return
      */
     @RequestMapping("removeTypeById")
     public boolean removeTypeById(int id) {
         boolean result = this.goodsTypeService.removeById(id);
+        return result;
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param pageNo
+     * @param pageSize
+     * @param goods
+     * @return
+     */
+    @RequestMapping("showGoods")
+    public PageInfo<MyGoods> showGoods(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize, Goods goods) {
+        PageInfo<MyGoods> pageInfo = this.goodsService.select(pageNo, pageSize, goods);
+        return pageInfo;
+    }
+
+    /**
+     * 往商品表中插入数据
+     *
+     * @param goods
+     * @param fileObj
+     * @param request
+     * @return
+     */
+    @RequestMapping("saveGoods")
+    public boolean saveGoods(Goods goods, MultipartFile fileObj, HttpServletRequest request) {
+        if (fileObj != null) {
+            //获取当前项目发布地址/img
+            String path = request.getServletContext().getRealPath("/img");
+            try {
+                fileObj.transferTo(new File(path, fileObj.getOriginalFilename()));
+
+                goods.setImageUrl("img/" + fileObj.getOriginalFilename());
+            } catch (IOException e) {
+
+            }
+        }
+        boolean result = this.goodsService.save(goods);
+        return result;
+    }
+
+    /**
+     * 根据id查询单个商品信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("queryGoodsById")
+    public Goods queryGoodsById(int id) {
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        List<Goods> goods = this.goodsService.list(queryWrapper);
+        if (goods.size() > 0) {
+            Goods good = goods.get(0);
+            return good;
+        }
+        return null;
+    }
+
+    /**
+     * 根据id修改单个商品信息
+     * @param goods
+     * @param fileObj
+     * @param request
+     * @return
+     */
+    @RequestMapping("updateGoods")
+    public boolean updateGoods(Goods goods, MultipartFile fileObj, HttpServletRequest request) {
+        if (fileObj != null) {
+            //获取当前项目发布地址/img
+            String path = request.getServletContext().getRealPath("/img");
+            try {
+                fileObj.transferTo(new File(path, fileObj.getOriginalFilename()));
+                goods.setImageUrl("img/" + fileObj.getOriginalFilename());
+            } catch (IOException e) {
+
+            }
+        }
+        boolean result = this.goodsService.updateById(goods);
+        return result;
+    }
+
+    /**
+     * 根据id删除单个商品信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("removeGoods")
+    public boolean removeGoods(int id) {
+        boolean result = this.goodsService.removeById(id);
         return result;
     }
 }

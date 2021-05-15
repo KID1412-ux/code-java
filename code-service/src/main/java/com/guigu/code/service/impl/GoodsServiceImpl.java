@@ -1,10 +1,13 @@
 package com.guigu.code.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.guigu.code.mapper.GoodsMapper;
 import com.guigu.code.mapper.GoodsWarehouseMapper;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.GoodsWarehouse;
+import com.guigu.code.pojo.MyGoods;
 import com.guigu.code.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements GoodsService {
+public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements GoodsService {
 
     @Autowired
     private GoodsMapper goodsMapper;
@@ -45,5 +48,12 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
         return goodsWarehouseMapper.selectGoodsWarehouseByGoodsId(id);
     }
 
+    @Override
+    public PageInfo<MyGoods> select(Integer pageNo, Integer pageSize, Goods goods) {
+        PageHelper.startPage(pageNo, pageSize, true, null, null);
+        List<MyGoods> myGoods = this.goodsMapper.select(goods);
+        PageInfo<MyGoods> pageInfo = new PageInfo<>(myGoods);
+        return pageInfo;
+    }
 
 }
