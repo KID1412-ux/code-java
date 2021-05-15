@@ -7,6 +7,7 @@ import com.guigu.code.service.GoodsTypeService;
 import com.guigu.code.utils.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -99,15 +100,13 @@ public class GoodsDataMaintainController {
     }
 
     /**
-     * 根据父级id删除商品分类信息
-     * @param parentId
+     * 根据id批量删除商品分类信息
+     * @param ids
      * @return
      */
-    @RequestMapping("removeTypeByParentId")
-    public boolean removeTypeByParentId(int parentId) {
-        QueryWrapper<GoodsType> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("parent_id", parentId);
-        boolean result = this.goodsTypeService.remove(queryWrapper);
+    @RequestMapping("removeTypeByIds")
+    public boolean removeTypeByParentId(@RequestBody List<Integer> ids) {
+        boolean result = this.goodsTypeService.removeByIds(ids);
         return result;
     }
 
@@ -120,15 +119,5 @@ public class GoodsDataMaintainController {
     public boolean removeTypeById(int id) {
         boolean result = this.goodsTypeService.removeById(id);
         return result;
-    }
-
-    /**
-     * 查询所有的商品分类信息
-     * @return
-     */
-    @RequestMapping("queryType")
-    public List<GoodsType> queryType() {
-        List<GoodsType> goodsTypes = this.goodsTypeService.list();
-        return goodsTypes;
     }
 }
