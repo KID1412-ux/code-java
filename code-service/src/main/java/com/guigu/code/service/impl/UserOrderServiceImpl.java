@@ -51,4 +51,9 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
     public List<Users> selectMerchants(Integer userId) {
         return null;
     }
+
+    @Override
+    public int payUserOrder(Integer orderId) {
+        return 0;
+    }
 }

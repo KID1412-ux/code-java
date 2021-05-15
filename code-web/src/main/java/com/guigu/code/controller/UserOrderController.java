@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -42,6 +43,17 @@ public class UserOrderController {
         return userOrderService.selectAllUserOrderDetail(orderId);
     }
 
+    /**
+     * 支付方法
+     * @param userOrder
+     * @return
+     */
+    @RequestMapping("payUserOrder")
+    @ResponseBody
+    public boolean payUserOrder(UserOrder userOrder){
+        return userOrderService.updateById(userOrder);
+
+    }
     /**
      * 收货
      * @param orderId

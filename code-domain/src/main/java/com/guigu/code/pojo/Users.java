@@ -42,6 +42,11 @@ public class Users {
     private String userNickname;
 
     /**
+     * 用户头像
+     */
+    @TableField("user_image")
+    private String userImage;
+    /**
      * 出生日期
      */
     @TableField("birthday")
@@ -91,6 +96,11 @@ public class Users {
     @TableField("merchant_describe")
     private String merchantDescribe;
 
+    @TableField("merchant_permit_image")
+    private String merchantPermitImage;
+    
+    @TableField("merchant_shop_image")
+    private String merchantShopImage;
     /**
      * 商户电话
      */
@@ -120,7 +130,13 @@ public class Users {
      */
     @TableField("supplier_name")
     private String supplierName;
+    
 
+    @TableField("supplier_permit_image")    
+    private String supplierPermitImage;
+
+    @TableField("supplier_shop_image")
+    private String supplierShopImage;
     /**
      * 供应商电话
      */

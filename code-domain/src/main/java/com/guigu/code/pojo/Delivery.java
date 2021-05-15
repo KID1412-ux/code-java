@@ -47,6 +47,7 @@ public class Delivery {
     @TableField("amount")
     private Integer amount;
 
-
+    @TableField("delivery_stats")
+    private String deliveryStats;
 
 }

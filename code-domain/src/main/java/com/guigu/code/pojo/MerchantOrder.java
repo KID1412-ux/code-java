@@ -53,6 +53,7 @@ public class MerchantOrder {
     @TableField("create_time")
     private Date createTime;
 
-
+    @TableField("user_id")
+    private Integer userId;
 
 }
