@@ -16,10 +16,14 @@ import java.util.List;
  */
 public interface UserOrderMapper extends BaseMapper<UserOrder> {
     List<UserOrder> selectAllUserOrder(Integer userId);
+
     List<MyUserOrder> selectUserOrdersByDto(UserOrderDto dto);
+
     List<MyUserOrderDetail> selectUserOrderDetail(Integer orderId);
+
     int receipt(Integer orderId);
+
     int deleteOrder(Integer orderId);
+
     int deleteOrderDetail(Integer orderId);
-    List<Users> selectMerchants(Integer userId);
 }

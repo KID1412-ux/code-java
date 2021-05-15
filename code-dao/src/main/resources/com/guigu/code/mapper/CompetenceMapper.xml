@@ -4,10 +4,10 @@
     <select id="selectbyemployeeid" resultType="com.guigu.code.pojo.Competence" parameterType="java.lang.Integer">
         SELECT competence.*
         FROM employee
-        INNER JOIN manager_roles ON employee.`id` = manager_roles.`employee_id`
-        INNER JOIN roles ON roles.`id` = manager_roles.`role_id`
-        INNER JOIN role_competence ON role_competence.`role_id` = roles.`id`
-        INNER JOIN competence ON role_competence.`competence_id` = competence.`id`
+                 INNER JOIN manager_roles ON employee.`id` = manager_roles.`employee_id`
+                 INNER JOIN roles ON roles.`id` = manager_roles.`role_id`
+                 INNER JOIN role_competence ON role_competence.`role_id` = roles.`id`
+                 INNER JOIN competence ON role_competence.`competence_id` = competence.`id`
         WHERE employee.`id` = #{param1};
     </select>
 </mapper>

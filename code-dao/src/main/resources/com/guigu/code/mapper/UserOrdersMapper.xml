@@ -7,7 +7,8 @@
             user_id=#{userId}
         </where>
     </select>
-    <select id="selectUserOrdersByDto" parameterType="com.guigu.code.dto.users.UserOrderDto" resultType="com.guigu.code.pojo.MyUserOrder">
+    <select id="selectUserOrdersByDto" parameterType="com.guigu.code.dto.users.UserOrderDto"
+            resultType="com.guigu.code.pojo.MyUserOrder">
         SELECT uo.*,u.user_nickname FROM user_order uo INNER JOIN users u ON uo.user_id=u.id
         <where>
             user_id=#{userId}
@@ -20,22 +21,24 @@
         </where>
     </select>
     <select id="selectUserOrderDetail" parameterType="integer" resultType="com.guigu.code.pojo.MyUserOrderDetail">
-        SELECT uod.* , g.goods_name,g.image_url FROM user_order_detail uod INNER JOIN goods g ON uod.goods_id=g.id
-        where uod.order_id=#{orderId}
+        SELECT uod.*, g.goods_name, g.image_url
+        FROM user_order_detail uod
+                 INNER JOIN goods g ON uod.goods_id = g.id
+        where uod.order_id = #{orderId}
     </select>
     <update id="receipt" parameterType="integer">
-        UPDATE user_order SET order_stats='2'
-        WHERE id=#{orderId}
+        UPDATE user_order
+        SET order_stats='2'
+        WHERE id = #{orderId}
     </update>
     <delete id="deleteOrder" parameterType="integer">
-        DELETE FROM user_order
-        WHERE id=#{orderId}
+        DELETE
+        FROM user_order
+        WHERE id = #{orderId}
     </delete>
     <delete id="deleteOrderDetail" parameterType="integer">
-        DELETE FROM user_order_detail
-        WHERE order_id=#{orderId}
+        DELETE
+        FROM user_order_detail
+        WHERE order_id = #{orderId}
     </delete>
-    <select id="selectMerchants">
-
-    </select>
 </mapper>
