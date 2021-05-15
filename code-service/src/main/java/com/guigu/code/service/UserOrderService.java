@@ -21,4 +21,6 @@ public interface UserOrderService extends IService<UserOrder> {
     int deleteOrder(Integer orderId);
 
     List<Users> selectMerchants(Integer userId);
+
+    int payUserOrder(Integer orderId);
 }
