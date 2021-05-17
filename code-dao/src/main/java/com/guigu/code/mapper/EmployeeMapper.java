@@ -26,6 +26,12 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
     //修改员工信息
     int updateemployee(Employee employee);
 
+    //查询当前员工已有新角色
+    List<Roles> selectbyempid(Integer id);
+
+    //查询当前员工已有职务
+    List<Post> selectpostbyid(Integer id);
+
     /**
      * 查询所有的采购员
      * @return

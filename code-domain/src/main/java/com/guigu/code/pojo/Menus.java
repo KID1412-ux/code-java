@@ -34,7 +34,7 @@ public class Menus {
     private String menuCode;
 
     /**
-     * 菜单代码
+     * 菜单路劲
      */
     @TableField("menu_url")
     private String menuUrl;

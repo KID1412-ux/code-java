@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.PostMapper">
+    <select id="selectbyid" parameterType="java.lang.Integer" resultType="com.guigu.code.pojo.Post">
+        SELECT * FROM post where id=#{param1};
+    </select>
+
+    <update id="updatepost" parameterType="com.guigu.code.pojo.Post">
+        update post set post_name=#{postName},post_describe=#{postDescribe} where id=#{id}
+    </update>
+
+    <insert id="insertpost" parameterType="com.guigu.code.pojo.Post">
+        insert into post value(null,#{postName},#{postDescribe});
+    </insert>
+
+    <select id="selectall" resultType="com.guigu.code.pojo.Post">
+        select * from post;
+    </select>
+</mapper>

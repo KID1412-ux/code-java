@@ -35,7 +35,7 @@ public class Competence {
     @TableField("competence_describe")
     private String competenceDescribe;
 
-
+    @TableField(exist = false)
     private List<Menus> menus;
 
 
