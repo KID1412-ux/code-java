@@ -2,61 +2,106 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.code.mapper.UsersMapper">
     <select id="selectallmerchant" resultType="com.guigu.code.pojo.Users">
-        SELECT * FROM users WHERE merchant_audit_status =0;
+        SELECT *
+        FROM users
+        WHERE merchant_audit_status = 0;
     </select>
 
     <select id="userLogin" parameterType="string" resultType="com.guigu.code.pojo.Users">
-        SELECT * FROM users WHERE user_name=#{param1} ;
+        SELECT *
+        FROM users
+        WHERE user_name = #{param1};
     </select>
     <insert id="insertUser" parameterType="com.guigu.code.pojo.Users">
-        INSERT INTO users(user_name,PASSWORD,user_nickname,birthday,sex,phone,TYPE,user_stats) VALUES(#{userName},#{password},#{userNickname},#{birthday},#{sex},#{phone},#{type},#{userStats})
+        INSERT INTO users(user_name, PASSWORD, user_nickname, birthday, sex, phone, TYPE, user_stats)
+        VALUES (#{userName}, #{password}, #{userNickname}, #{birthday}, #{sex}, #{phone}, #{type}, #{userStats})
     </insert>
 
     <update id="pass" parameterType="java.lang.Integer">
-        UPDATE users SET merchant_audit_status =1 , type=1,merchant_id=#{param1},merchant_stats=0 WHERE id=#{param1};
+        UPDATE users
+        SET merchant_audit_status =1,
+            type=1,
+            merchant_id=#{param1},
+            merchant_stats=0
+        WHERE id = #{param1};
     </update>
 
     <update id="fail" parameterType="java.lang.Integer">
-        UPDATE users SET merchant_audit_status =2 WHERE merchant_id=#{param1};
+        UPDATE users
+        SET merchant_audit_status =2
+        WHERE merchant_id = #{param1};
     </update>
 
     <select id="selectmerchant" resultType="com.guigu.code.pojo.Users">
-        SELECT * FROM users WHERE TYPE=1;
+        SELECT *
+        FROM users
+        WHERE TYPE = 1;
     </select>
 
     <select id="selectbymerchantId" resultType="com.guigu.code.pojo.Users">
-        SELECT * FROM users WHERE merchant_id=#{param1};
+        SELECT *
+        FROM users
+        WHERE merchant_id = #{param1};
     </select>
 
     <update id="updatemerchant" parameterType="com.guigu.code.pojo.Users">
-        UPDATE users SET merchant_name=#{merchantName} ,merchant_describe=#{merchantDescribe} ,merchant_phone=#{merchantPhone} ,delivery_address=#{deliveryAddress} ,merchant_stats=#{merchantStats} WHERE merchant_id=#{merchantId}
+        UPDATE users
+        SET merchant_name=#{merchantName},
+            merchant_describe=#{merchantDescribe},
+            merchant_phone=#{merchantPhone},
+            delivery_address=#{deliveryAddress},
+            merchant_stats=#{merchantStats}
+        WHERE merchant_id = #{merchantId}
     </update>
 
     <update id="passsupplier" parameterType="java.lang.Integer">
-        UPDATE users SET supplier_audit_status =1 , TYPE=2,supplier_stats=0 WHERE id=#{param1};
+        UPDATE users
+        SET supplier_audit_status =1,
+            TYPE=2,
+            supplier_stats=0
+        WHERE id = #{param1};
     </update>
 
     <update id="failsupplier" parameterType="java.lang.Integer">
-        UPDATE users SET supplier_audit_status =2 WHERE id=#{param1};
+        UPDATE users
+        SET supplier_audit_status =2
+        WHERE id = #{param1};
     </update>
 
     <select id="selectallsupplier" resultType="com.guigu.code.pojo.Users">
-        SELECT * FROM users WHERE supplier_audit_status =0;
+        SELECT *
+        FROM users
+        WHERE supplier_audit_status = 0;
     </select>
 
     <select id="selectsupplier" resultType="com.guigu.code.pojo.Users">
-        SELECT * FROM users WHERE TYPE=2;
+        SELECT *
+        FROM users
+        WHERE TYPE = 2;
     </select>
 
     <select id="selectsupplierbyid" parameterType="java.lang.Integer" resultType="com.guigu.code.pojo.Users">
-        SELECT * FROM users WHERE id=#{param1};
+        SELECT *
+        FROM users
+        WHERE id = #{param1};
     </select>
 
     <update id="updatesupplier" parameterType="com.guigu.code.pojo.Users">
-        UPDATE users SET supplier_name=#{supplierName},supplier_phone=#{supplierPhone},supplier_address=#{supplierAddress},supplier_stats=#{supplierStats} WHERE id=#{id}
+        UPDATE users
+        SET supplier_name=#{supplierName},
+            supplier_phone=#{supplierPhone},
+            supplier_address=#{supplierAddress},
+            supplier_stats=#{supplierStats}
+        WHERE id = #{id}
     </update>
 
     <insert id="insertloginformation" parameterType="com.guigu.code.pojo.Loginformation">
-        INSERT INTO log_information VALUE(NULL,#{parentID},#{logtype},#{logdetail});
+        INSERT INTO log_information VALUE (NULL, #{parentID}, #{logtype}, #{logdetail});
     </insert>
+
+    <select id="selectUserById" resultType="com.guigu.code.pojo.Users">
+        SELECT *
+        FROM users
+        WHERE id = #{id}
+    </select>
 </mapper>

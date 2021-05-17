@@ -52,4 +52,8 @@ public interface UserService extends IService<Users> {
 
     //不通过反馈信息
     int insertloginformation(Loginformation log);
+
+    //根据ID查询用户
+    Users selectUserById(Integer id);
+
 }

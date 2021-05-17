@@ -14,6 +14,7 @@ import java.util.List;
 public interface ShopCartMapper extends BaseMapper<ShopCart> {
     /**
      * 连接查询
+     *
      * @param myShopCart 查询条件
      * @return
      */
@@ -21,6 +22,7 @@ public interface ShopCartMapper extends BaseMapper<ShopCart> {
 
     /**
      * 统计当前用户购物车的商品总数
+     *
      * @param myShopCart 查询条件
      * @return
      */

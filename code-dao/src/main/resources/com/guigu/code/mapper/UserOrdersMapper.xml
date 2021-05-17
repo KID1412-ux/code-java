@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.code.mapper.UserOrderMapper">
-    <select id="selectAllUserOrder" parameterType="string" resultType="com.guigu.code.pojo.MyUserOrder">
-        SELECT uo.*, uod.order_id,uod.order_id,uod.goods_id,uod.goods_amount,uod.goods_price FROM user_order uo INNER JOIN user_order_detail uod ON uo.id=uod.order_id
+    <select id="selectAllUserOrder" parameterType="integer" resultType="com.guigu.code.pojo.UserOrder">
+        SELECT * FROM user_order
         <where>
-            uo.user_id=#{userId}
+            user_id=#{userId}
         </where>
     </select>
     <select id="selectUserOrdersByDto" parameterType="com.guigu.code.dto.users.UserOrderDto" resultType="com.guigu.code.pojo.MyUserOrder">
-        SELECT uo.*, uod.order_id,uod.order_id,uod.goods_id,uod.goods_amount,uod.goods_price FROM user_order uo INNER JOIN user_order_detail uod ON uo.id=uod.order_id
+        SELECT uo.*,u.user_nickname FROM user_order uo INNER JOIN users u ON uo.user_id=u.id
         <where>
-            uo.user_id=#{userId}
+            user_id=#{userId}
             <if test="orderNumber != null and orderNumber != ''">
-                and uo.order_number like concat('%',#{orderNumber},'%')
+                and order_number like concat('%',#{orderNumber},'%')
             </if>
             <if test="orderStats != null and orderStats != ''">
-                and uo.order_stats =#{orderStats}
+                and order_stats =#{orderStats}
             </if>
         </where>
     </select>
+    <select id="selectUserOrderDetail" parameterType="integer" resultType="com.guigu.code.pojo.MyUserOrderDetail">
+        SELECT uod.* , g.goods_name,g.image_url FROM user_order_detail uod INNER JOIN goods g ON uod.goods_id=g.id
+        where uod.order_id=#{orderId}
+    </select>
+    <update id="receipt" parameterType="integer">
+        UPDATE user_order SET order_stats='2'
+        WHERE id=#{orderId}
+    </update>
+    <delete id="deleteOrder" parameterType="integer">
+        DELETE FROM user_order
+        WHERE id=#{orderId}
+    </delete>
+    <delete id="deleteOrderDetail" parameterType="integer">
+        DELETE FROM user_order_detail
+        WHERE order_id=#{orderId}
+    </delete>
 </mapper>

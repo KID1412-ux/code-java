@@ -1,13 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.code.mapper.GoodsMapper">
-    <select id="selectPartGoods" resultType="com.guigu.code.pojo.Goods" >
-        SELECT * FROM goods where goods_state=0 GROUP BY goods_sales DESC LIMIT 8
+    <select id="selectPartGoods" resultType="com.guigu.code.pojo.Goods">
+        SELECT *
+        FROM goods
+        where goods_state = 0
+          and supplier_id = 0
+        GROUP BY goods_sales DESC
+        LIMIT 8
     </select>
-    <select id="selectGoodById" resultType="com.guigu.code.pojo.Goods" >
-        SELECT * FROM goods WHERE id=#{id} and goods_state=0
+    <select id="selectGoodById" resultType="com.guigu.code.pojo.Goods">
+        SELECT *
+        FROM goods
+        WHERE id = #{id}
+          and goods_state = 0
+          and supplier_id = 0
     </select>
     <select id="selectGoodsByFirstKindId" resultType="com.guigu.code.pojo.Goods">
-        SELECT * FROM goods WHERE first_kind_id=#{id} and goods_state=0 GROUP BY goods_sales DESC LIMIT 4
+        SELECT *
+        FROM goods
+        WHERE first_kind_id = #{id}
+          and goods_state = 0
+          and supplier_id = 0
+        GROUP BY goods_sales DESC
+        LIMIT 4
+    </select>
+    <select id="selectGoodsByGoodName" resultType="com.guigu.code.pojo.Goods">
+        SELECT *
+        FROM goods
+        WHERE goods_state = 0
+          AND supplier_id = 0
+          AND goods_describe LIKE #{name}
+    </select>
+    <select id="select" parameterType="com.guigu.code.pojo.Goods" resultType="com.guigu.code.pojo.MyGoods">
+        SELECT *
+        FROM `goods` g
+        WHERE g.`supplier_id` = '0'
+        <if test="goodsName != '' and goodsName != null">
+            AND g.`goods_name` LIKE CONCAT('%', #{goodsName}, '%')
+        </if>
+        <if test="goodsState != '' and goodsState != null">
+            AND g.`goods_state` = #{goodsState}
+        </if>
+        <if test="firstKindId != '' and firstKindId != null">
+            AND g.`first_kind_id` = #{firstKindId}
+        </if>
+        <if test="secondKindId != '' and secondKindId != null">
+            AND g.`second_kind_id` = #{secondKindId}
+        </if>
+        <if test="thirdKindId != '' and thirdKindId != null">
+            AND g.`third_kind_id` = #{thirdKindId}
+        </if>
     </select>
 </mapper>
