@@ -35,7 +35,4 @@
         DELETE FROM user_order_detail
         WHERE order_id=#{orderId}
     </delete>
-    <select id="selectMerchants">
-
-    </select>
 </mapper>

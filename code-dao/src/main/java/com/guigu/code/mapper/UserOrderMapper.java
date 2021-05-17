@@ -21,5 +21,4 @@ public interface UserOrderMapper extends BaseMapper<UserOrder> {
     int receipt(Integer orderId);
     int deleteOrder(Integer orderId);
     int deleteOrderDetail(Integer orderId);
-    List<Users> selectMerchants(Integer userId);
 }
