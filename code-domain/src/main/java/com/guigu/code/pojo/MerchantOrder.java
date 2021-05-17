@@ -53,6 +53,9 @@ public class MerchantOrder {
     @TableField("create_time")
     private Date createTime;
 
+    /**
+     * 用户id，外键
+     */
     @TableField("user_id")
     private Integer userId;
 

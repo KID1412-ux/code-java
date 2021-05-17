@@ -1,13 +1,16 @@
 package com.guigu.code.controller;
 
 import com.guigu.code.pojo.Goods;
+import com.guigu.code.pojo.GoodsType;
 import com.guigu.code.pojo.GoodsWarehouse;
 import com.guigu.code.service.GoodsService;
+import com.guigu.code.service.GoodsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +21,8 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private GoodsTypeService goodsTypeService;
 
     @RequestMapping("rexiao")
     @CrossOrigin
@@ -63,6 +68,20 @@ public class GoodsController {
         System.out.println(GoodsSearch);
         System.out.println("-----------");
         return GoodsSearch;
+    }
+
+    @RequestMapping("FenLei")
+    @CrossOrigin
+    public List<GoodsType> FenLei(){
+        List<GoodsType> goodsTypes = goodsTypeService.selectGoodsType();
+        //一级分类
+        List parent=new ArrayList();
+        for (GoodsType goodstype:goodsTypes) {
+            if (goodstype.getParentId()==0){
+                parent.add(goodstype);
+            }
+        }
+        return parent;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.guigu.code.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageInfo;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.GoodsType;
@@ -137,16 +139,32 @@ public class GoodsDataMaintainController {
 
     /**
      * 分页查询
-     *
      * @param pageNo
      * @param pageSize
      * @param goods
      * @return
      */
     @RequestMapping("showGoods")
-    public PageInfo<MyGoods> showGoods(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize, Goods goods) {
-        PageInfo<MyGoods> pageInfo = this.goodsService.select(pageNo, pageSize, goods);
-        return pageInfo;
+    public IPage<Goods> showGoods(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize, Goods goods) {
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        if (goods.getGoodsName() != null && !goods.getGoodsName().isEmpty()) {
+            queryWrapper.like("goods_name", goods.getGoodsName());
+        }
+        if (goods.getGoodsState() != null && !goods.getGoodsState().isEmpty()) {
+            queryWrapper.eq("goods_state", goods.getGoodsState());
+        }
+        if (goods.getFirstKindId() != null && !goods.getFirstKindId().isEmpty()) {
+            queryWrapper.eq("first_kind_id", goods.getFirstKindId());
+        }
+        if (goods.getSecondKindId() != null && !goods.getSecondKindId().isEmpty()) {
+            queryWrapper.eq("second_kind_id", goods.getSecondKindId());
+        }
+        if (goods.getThirdKindId() != null && !goods.getThirdKindId().isEmpty()) {
+            queryWrapper.eq("third_kind_id", goods.getThirdKindId());
+        }
+        queryWrapper.eq("supplier_id", "0");
+        IPage<Goods> iPage = this.goodsService.page(new Page<>(pageNo, pageSize), queryWrapper);
+        return iPage;
     }
 
     /**
@@ -161,11 +179,11 @@ public class GoodsDataMaintainController {
     public boolean saveGoods(Goods goods, MultipartFile fileObj, HttpServletRequest request) {
         if (fileObj != null) {
             //获取当前项目发布地址/img
-            String path = request.getServletContext().getRealPath("/img");
+            String path = request.getServletContext().getRealPath("/img/goods");
             try {
                 fileObj.transferTo(new File(path, fileObj.getOriginalFilename()));
 
-                goods.setImageUrl("img/" + fileObj.getOriginalFilename());
+                goods.setImageUrl("img/goods" + fileObj.getOriginalFilename());
             } catch (IOException e) {
 
             }
@@ -176,6 +194,7 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id查询单个商品信息
+     *
      * @param id
      * @return
      */
@@ -193,6 +212,7 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id修改单个商品信息
+     *
      * @param goods
      * @param fileObj
      * @param request
@@ -202,10 +222,10 @@ public class GoodsDataMaintainController {
     public boolean updateGoods(Goods goods, MultipartFile fileObj, HttpServletRequest request) {
         if (fileObj != null) {
             //获取当前项目发布地址/img
-            String path = request.getServletContext().getRealPath("/img");
+            String path = request.getServletContext().getRealPath("/img/goods");
             try {
                 fileObj.transferTo(new File(path, fileObj.getOriginalFilename()));
-                goods.setImageUrl("img/" + fileObj.getOriginalFilename());
+                goods.setImageUrl("img/goods" + fileObj.getOriginalFilename());
             } catch (IOException e) {
 
             }
@@ -216,6 +236,7 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id删除单个商品信息
+     *
      * @param id
      * @return
      */
