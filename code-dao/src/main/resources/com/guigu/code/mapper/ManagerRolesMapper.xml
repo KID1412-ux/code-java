@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.ManagerRolesMapper">
+    <delete id="deletebyempid" parameterType="java.lang.Integer">
+        DELETE FROM manager_roles WHERE employee_id=#{param1};
+    </delete>
+
+    <insert id="insertbyemid" parameterType="java.lang.Integer" >
+        INSERT INTO manager_roles VALUE(NULL,#{param2},#{param1});
+    </insert>
+</mapper>

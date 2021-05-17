@@ -8,4 +8,25 @@
             INNER JOIN role_competence ON role_competence.`role_id`=roles.`id`
             INNER JOIN competence ON role_competence.`competence_id`=competence.`id` WHERE employee.`id`=#{param1};
     </select>
+
+    <select id="selectallcompetence" resultType="com.guigu.code.pojo.Competence">
+        SELECT * FROM competence;
+    </select>
+
+    <select id="selectbycomid" resultType="com.guigu.code.pojo.Competence" parameterType="java.lang.Integer">
+        SELECT * FROM competence where id=#{param1};
+    </select>
+
+    <update id="updatecompetence" parameterType="com.guigu.code.pojo.Competence">
+        UPDATE competence SET competence_name=#{competenceName},competence_describe=#{competenceDescribe} WHERE id=#{id};
+    </update>
+
+    <insert id="insertcompetence" parameterType="com.guigu.code.pojo.Competence">
+        INSERT INTO competence VALUE(NULL,#{competenceName},#{competenceDescribe});
+    </insert>
+
+    <select id="selectmenubycomid" parameterType="java.lang.Integer" resultType="com.guigu.code.pojo.Menus">
+        SELECT menus.* FROM competence INNER JOIN competence_menus ON competence.`id`=competence_menus.`competence_id`
+                                       INNER JOIN menus ON competence_menus.`menus_id`=menus.`id` WHERE competence.`id`=#{param1};
+    </select>
 </mapper>
