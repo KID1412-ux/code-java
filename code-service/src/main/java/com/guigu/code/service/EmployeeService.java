@@ -16,4 +16,10 @@ public interface EmployeeService extends IService<Employee> {
     int addemployee(Employee employee);
     //修改员工信息
     int updateemployee(Employee employee);
+
+    /**
+     * 查询所有的采购员
+     * @return
+     */
+    List<Employee> selectBuyer();
 }

@@ -41,4 +41,10 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     public int updateemployee(Employee employee) {
         return employeeMapper.updateemployee(employee);
     }
+
+    @Override
+    public List<Employee> selectBuyer() {
+        List<Employee> employees = this.employeeMapper.selectBuyer();
+        return employees;
+    }
 }

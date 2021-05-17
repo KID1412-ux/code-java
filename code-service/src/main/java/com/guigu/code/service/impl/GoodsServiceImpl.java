@@ -47,13 +47,4 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     public GoodsWarehouse selectGoodsWarehouseByGoodsId(Integer id) {
         return goodsWarehouseMapper.selectGoodsWarehouseByGoodsId(id);
     }
-
-    @Override
-    public PageInfo<MyGoods> select(Integer pageNo, Integer pageSize, Goods goods) {
-        PageHelper.startPage(pageNo, pageSize, true, null, null);
-        List<MyGoods> myGoods = this.goodsMapper.select(goods);
-        PageInfo<MyGoods> pageInfo = new PageInfo<>(myGoods);
-        return pageInfo;
-    }
-
 }

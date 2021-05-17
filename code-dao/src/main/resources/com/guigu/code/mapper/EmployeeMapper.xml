@@ -33,4 +33,12 @@
             stats=#{stats}
         WHERE id = #{id};
     </update>
+
+    <select id="selectBuyer" resultType="com.guigu.code.pojo.Employee">
+        SELECT e.*
+        FROM `employee` e
+                 LEFT JOIN `employee_post` ep ON e.`id` = ep.`employee_id`
+                 LEFT JOIN `post` p ON ep.`post_id` = p.`id`
+        WHERE p.`post_name` = '采购员'
+    </select>
 </mapper>
