@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("user")
@@ -27,19 +28,16 @@ public class UserController {
      * @return
      */
     @RequestMapping("userLogin")
-    
     public Users userLogin(String userName, String password) {
         return userService.userLogin(userName, password);
     }
 
     /**
      * 查询单个用户（可用于用户验证）
-     *
      * @param userName
      * @return
      */
     @RequestMapping("selectOneUser")
-    
     public Users selectOneUser(String userName) {
         return userService.selectOneUser(userName);
     }
@@ -48,6 +46,7 @@ public class UserController {
     public int insertUser(Users user) {
         return userService.insertUser(user);
     }
+
     @RequestMapping("updateUser")
     public boolean updateUser(Users user, MultipartFile userImageUrl, HttpServletRequest request) {
         System.out.println(user);
@@ -63,6 +62,7 @@ public class UserController {
         boolean result = this.userService.updateById(user);
         return result;
     }
+
     /*查询所有商户审核信息*/
     /*查询所有供应商审核信息*/
     @RequestMapping("selectallmerchant")
@@ -70,6 +70,7 @@ public class UserController {
         List<Users> users = userService.selectallmerchant();
         return users;
     }
+
     //商户申请
     @RequestMapping("merchantApply")
     public boolean merchantApply(Users user, MultipartFile fileObj1, MultipartFile fileObj2, HttpServletRequest request) {
@@ -89,6 +90,7 @@ public class UserController {
         boolean result = this.userService.updateById(user);
         return result;
     }
+
     //供应商申请
     @RequestMapping("supplierApply")
     public boolean supplierApply(Users user, MultipartFile fileObj3, MultipartFile fileObj4, HttpServletRequest request) {
@@ -108,9 +110,9 @@ public class UserController {
         boolean result = this.userService.updateById(user);
         return result;
     }
+
     /*通过商户审核*/
     @RequestMapping("pass")
-    
     public String pass(Integer id) {
         int pass = userService.pass(id);
         return "成功";
@@ -118,22 +120,20 @@ public class UserController {
 
     /*不通过商户审核*/
     @RequestMapping("fail")
-    
     public String fail(Integer id) {
         int pass = userService.fail(id);
         return "成功";
     }
 
-    @RequestMapping("selectmerchant")
-    
     /*查询所有商户*/
+    @RequestMapping("selectmerchant")
     public List<Users> selectmerchant() {
         List<Users> list = userService.selectmerchant();
         return list;
     }
 
     @RequestMapping("selectbymerchantId")
-    
+
     /*根据商户ID查询商户*/
     public Users selectbymerchantId(Integer id) {
         Users users = userService.selectbymerchantId(id);
@@ -141,7 +141,7 @@ public class UserController {
     }
 
     @RequestMapping("updatemerchant")
-    
+
     /*修改商户信息*/
     public String updatemerchant(Users users) {
         System.out.println(users);
@@ -150,7 +150,7 @@ public class UserController {
     }
 
     @RequestMapping("passsupplier")
-    
+
     /*通过供应商审核*/
     public String passsupplier(Integer id) {
         int passsupplier = userService.passsupplier(id);
@@ -159,7 +159,7 @@ public class UserController {
 
     /*不通过供应商审核*/
     @RequestMapping("failsupplier")
-    
+
     public String failsupplier(Integer id) {
         int failsupplier = userService.failsupplier(id);
         return "不通过";
@@ -167,7 +167,7 @@ public class UserController {
 
     /*查询所有供应商审核信息*/
     @RequestMapping("selectallsupplier")
-    
+
     public List<Users> selectallsupplier() {
         List<Users> users = userService.selectallsupplier();
         return users;
@@ -175,7 +175,7 @@ public class UserController {
 
     /*查询所有的供应商*/
     @RequestMapping("selectsupplier")
-    
+
     public List<Users> selectsupplier() {
         List<Users> users = userService.selectsupplier();
         return users;
@@ -183,7 +183,7 @@ public class UserController {
 
     /*根据ID查询供应商*/
     @RequestMapping("selectsupplierbyid")
-    
+
     public Users selectsupplierbyid(Integer id) {
         Users users = userService.selectsupplierbyid(id);
         return users;
@@ -191,7 +191,7 @@ public class UserController {
 
     /*修改供应商信息*/
     @RequestMapping("updatesupplier")
-    
+
     public String updatesupplier(Users users) {
         int updatesupplier = userService.updatesupplier(users);
         return "修改成功";
@@ -199,7 +199,7 @@ public class UserController {
 
     /*不通过反馈信息*/
     @RequestMapping("insertloginformation")
-    
+
     public String insertloginformation(Loginformation log) {
         System.out.println(log);
         int i = userService.insertloginformation(log);
@@ -208,7 +208,7 @@ public class UserController {
 
     //通过ID查询用户
     @RequestMapping("selectUserByID")
-    
+
     public Users selectUserByID(String userID) {
         Integer ID = Integer.parseInt(userID);
         Users users = userService.selectUserById(ID);

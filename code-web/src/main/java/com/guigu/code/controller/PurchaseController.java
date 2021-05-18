@@ -293,7 +293,6 @@ public class PurchaseController {
      */
     @RequestMapping("updatePurchase")
     public boolean updatePurchase(Purchase purchase) {
-        purchase.setCheckTime(new Date());
         boolean result = this.purchaseService.updateById(purchase);
         return result;
     }
