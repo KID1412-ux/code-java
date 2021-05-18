@@ -2,6 +2,7 @@ package com.guigu.code.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
+import com.guigu.code.dto.goods.search;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.GoodsWarehouse;
 import com.guigu.code.pojo.MyGoods;
@@ -20,7 +21,7 @@ public interface GoodsService extends IService<Goods> {
     List<Goods> selectGoodsByFirstKindId(Integer id);
 
     //首页商品模糊查询
-    List<Goods> selectGoodsByGoodName(String name);
+    PageInfo<Goods> selectGoodsByGoodName( Integer pageNo, Integer pageSize, String name);
 
     //根据商品ID查询商品库存
     GoodsWarehouse selectGoodsWarehouseByGoodsId(Integer id);
