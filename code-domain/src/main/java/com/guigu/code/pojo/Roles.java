@@ -33,6 +33,4 @@ public class Roles {
     @TableField("role_describe")
     private String roleDescribe;
 
-
-
 }

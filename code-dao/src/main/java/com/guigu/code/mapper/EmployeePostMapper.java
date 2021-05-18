@@ -9,4 +9,6 @@ import com.guigu.code.pojo.EmployeePost;
  * @Date 2021/4/26 21:05
  */
 public interface EmployeePostMapper extends BaseMapper<EmployeePost> {
+    int deletebyid(Integer empid);
+    int insertemppost(Integer empid,Integer postid);
 }

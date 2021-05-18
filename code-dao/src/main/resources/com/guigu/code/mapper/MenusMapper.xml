@@ -2,10 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.code.mapper.MenusMapper">
     <select id="selectbycompetenceid" parameterType="java.lang.Integer" resultType="com.guigu.code.pojo.Menus">
-        SELECT menus.*
-        FROM competence
-                 INNER JOIN competence_menus ON competence.`id` = competence_menus.`competence_id`
-                 INNER JOIN menus ON competence_menus.`menus_id` = menus.`id`
-        WHERE competence.`id` = #{param1};
+        SELECT menus.* FROM competence
+            INNER JOIN competence_menus ON competence.`id`=competence_menus.`competence_id`
+            INNER JOIN menus ON competence_menus.`menus_id`=menus.`id` WHERE competence.`id`=#{param1};
     </select>
+    <select id="selectall" resultType="com.guigu.code.pojo.Menus">
+        select * from menus;
+    </select>
+
+    <select id="selectbyid" resultType="com.guigu.code.pojo.Menus" parameterType="java.lang.Integer">
+        select * from menus where id=#{param1};
+    </select>
+
+    <update id="updatemenus" parameterType="com.guigu.code.pojo.Menus">
+        UPDATE menus SET menu_name=#{menuName},menu_code=#{menuCode},menu_url=#{menuUrl} WHERE id=#{id};
+    </update>
+
+    <insert id="insertmenus" parameterType="com.guigu.code.pojo.Menus">
+        INSERT INTO menus VALUE(NULL,#{menuName},#{menuCode},#{menuUrl});
+    </insert>
 </mapper>

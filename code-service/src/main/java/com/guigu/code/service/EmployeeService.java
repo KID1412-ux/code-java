@@ -2,6 +2,8 @@ package com.guigu.code.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.guigu.code.pojo.Employee;
+import com.guigu.code.pojo.Post;
+import com.guigu.code.pojo.Roles;
 
 import java.util.List;
 
@@ -16,4 +18,8 @@ public interface EmployeeService extends IService<Employee> {
     int addemployee(Employee employee);
     //修改员工信息
     int updateemployee(Employee employee);
+    //查询当前员工已有新角色
+    List<Roles> selectbyempid(Integer id);
+    //查询当前员工已有职务
+    List<Post> selectpostbyid(Integer id);
 }

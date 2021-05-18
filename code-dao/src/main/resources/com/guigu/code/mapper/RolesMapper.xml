@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.RolesMapper">
+    <select id="selectallroles" resultType="com.guigu.code.pojo.Roles">
+        SELECT * FROM roles;
+    </select>
+
+    <insert id="addnewrole" parameterType="com.guigu.code.pojo.Roles">
+        INSERT INTO roles VALUE(NULL,#{roleName},#{roleDescribe});
+    </insert>
+
+    <update id="updaterole" parameterType="com.guigu.code.pojo.Roles">
+        UPDATE roles SET role_name=#{roleName},role_describe=#{roleDescribe} WHERE id=#{id}
+    </update>
+
+    <select id="selectbyid" parameterType="java.lang.Integer" resultType="com.guigu.code.pojo.Roles">
+        SELECT * FROM roles where id=#{param1}
+    </select>
+
+    <select id="selectbycomid" parameterType="java.lang.Integer" resultType="com.guigu.code.pojo.Competence">
+        SELECT competence.* FROM roles
+            INNER JOIN role_competence ON roles.`id`=role_competence.`role_id`
+                            INNER JOIN competence ON competence.`id`=role_competence.`competence_id` WHERE roles.`id`=#{param1};
+
+    </select>
+</mapper>

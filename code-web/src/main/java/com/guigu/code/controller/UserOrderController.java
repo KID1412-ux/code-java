@@ -3,14 +3,17 @@ package com.guigu.code.controller;
 import com.guigu.code.dto.users.UserOrderDto;
 import com.guigu.code.pojo.MyUserOrder;
 import com.guigu.code.pojo.MyUserOrderDetail;
+import com.guigu.code.pojo.ShopCart;
 import com.guigu.code.pojo.UserOrder;
 import com.guigu.code.service.UserOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +45,6 @@ public class UserOrderController {
     public List<MyUserOrderDetail> selectUserOrderDetail(Integer orderId){
         return userOrderService.selectAllUserOrderDetail(orderId);
     }
-
     /**
      * 支付方法
      * @param userOrder
