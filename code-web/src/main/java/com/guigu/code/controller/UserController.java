@@ -49,14 +49,14 @@ public class UserController {
         return userService.insertUser(user);
     }
     @RequestMapping("updateUser")
-    public boolean updateUser(Users user, MultipartFile userImage, HttpServletRequest request) {
+    public boolean updateUser(Users user, MultipartFile userImageUrl, HttpServletRequest request) {
         System.out.println(user);
-        if (userImage != null&&userImage!=null) {
+        if (userImageUrl != null) {
             //获取当前项目发布地址/img
             String path = request.getServletContext().getRealPath("/img/users");
             try {
-                userImage.transferTo(new File(path, userImage.getOriginalFilename()));
-                user.setUserImage("img/users/" + userImage.getOriginalFilename());
+                userImageUrl.transferTo(new File(path, userImageUrl.getOriginalFilename()));
+                user.setUserImage("img/users/" + userImageUrl.getOriginalFilename());
             } catch (IOException e) {
             }
         }
@@ -86,6 +86,25 @@ public class UserController {
             }
         }
         user.setMerchantAuditStatus("0");
+        boolean result = this.userService.updateById(user);
+        return result;
+    }
+    //供应商申请
+    @RequestMapping("supplierApply")
+    public boolean supplierApply(Users user, MultipartFile fileObj3, MultipartFile fileObj4, HttpServletRequest request) {
+        System.out.println(user);
+        if (fileObj3 != null&&fileObj4!=null) {
+            //获取当前项目发布地址/img
+            String path = request.getServletContext().getRealPath("/img/users");
+            try {
+                fileObj3.transferTo(new File(path, fileObj3.getOriginalFilename()));
+                user.setMerchantShopImage("img/users/" + fileObj3.getOriginalFilename());
+                fileObj4.transferTo(new File(path, fileObj4.getOriginalFilename()));
+                user.setMerchantPermitImage("img/users/" + fileObj4.getOriginalFilename());
+            } catch (IOException e) {
+            }
+        }
+        user.setSupplierAuditStatus("0");
         boolean result = this.userService.updateById(user);
         return result;
     }
