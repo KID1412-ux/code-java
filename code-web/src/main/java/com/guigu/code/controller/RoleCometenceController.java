@@ -13,15 +13,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class RoleCometenceController {
     @Autowired
     private RoleCometenceService roleCometenceService;
+
     @RequestMapping("add")
     @ResponseBody
-    public String add(Integer roleid,String[] comid){
-        if (comid.length==0){
+    public String add(Integer roleid, String[] comid) {
+        if (comid.length == 0) {
             roleCometenceService.delete(roleid);
-        }else {
+        } else {
             roleCometenceService.delete(roleid);
-            for (int i=0;i<comid.length;i++){
-                roleCometenceService.inserts(roleid,Integer.parseInt(comid[i]));
+            for (int i = 0; i < comid.length; i++) {
+                roleCometenceService.inserts(roleid, Integer.parseInt(comid[i]));
             }
         }
         return "赋予成功";

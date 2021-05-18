@@ -3,7 +3,6 @@ package com.guigu.code.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.pagehelper.PageInfo;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.GoodsType;
 import com.guigu.code.pojo.MyGoods;
@@ -44,7 +43,6 @@ public class GoodsDataMaintainController {
 
     /**
      * 展示所以的商品分类信息
-     *
      * @return
      */
     @RequestMapping("showType")
@@ -64,7 +62,6 @@ public class GoodsDataMaintainController {
 
     /**
      * 递归构造tree数据
-     *
      * @param nodes
      * @param parentId
      * @return
@@ -92,7 +89,6 @@ public class GoodsDataMaintainController {
 
     /**
      * 往商品分类表添加一条数据
-     *
      * @param goodsType
      * @return
      */
@@ -104,7 +100,6 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id修改商品分类信息
-     *
      * @param goodsType
      * @return
      */
@@ -116,7 +111,6 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id批量删除商品分类信息
-     *
      * @param ids
      * @return
      */
@@ -128,7 +122,6 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id删除商品分类信息
-     *
      * @param id
      * @return
      */
@@ -164,16 +157,12 @@ public class GoodsDataMaintainController {
             queryWrapper.eq("third_kind_id", goods.getThirdKindId());
         }
         queryWrapper.eq("supplier_id", "0");
-            IPage<Goods> iPage = this.goodsService.page(new Page<>(pageNo, pageSize), queryWrapper);
-        System.out.println("-----------");
-        System.out.println(iPage);
-        System.out.println("-----------");
+        IPage<Goods> iPage = this.goodsService.page(new Page<>(pageNo, pageSize), queryWrapper);
         return iPage;
     }
 
     /**
      * 往商品表中插入数据
-     *
      * @param goods
      * @param fileObj
      * @param request
@@ -197,7 +186,6 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id查询单个商品信息
-     *
      * @param id
      * @return
      */
@@ -215,7 +203,6 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id修改单个商品信息
-     *
      * @param goods
      * @param fileObj
      * @param request

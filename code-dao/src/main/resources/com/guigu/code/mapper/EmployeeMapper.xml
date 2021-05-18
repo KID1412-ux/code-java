@@ -2,23 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.code.mapper.EmployeeMapper">
     <select id="denglu" resultType="com.guigu.code.pojo.Employee" parameterType="java.lang.String">
-        SELECT * FROM employee WHERE employee_no=#{param1} AND PASSWORD=#{param2};
+        SELECT *
+        FROM employee
+        WHERE employee_no = #{param1}
+          AND PASSWORD = #{param2};
     </select>
 
     <select id="selectallemployee" resultType="com.guigu.code.pojo.Employee">
-        SELECT * FROM employee;
+        SELECT *
+        FROM employee;
     </select>
 
     <select id="selectemployeebyid" resultType="com.guigu.code.pojo.Employee" parameterType="java.lang.Integer">
-        select * from employee WHERE id=#{param1};
+        select *
+        from employee
+        WHERE id = #{param1};
     </select>
 
     <insert id="addemployee" parameterType="com.guigu.code.pojo.Employee">
-        INSERT INTO employee VALUE(NULL,#{employeeName},#{employeeNo},#{password},#{sex},#{phone},#{stats});
+        INSERT INTO employee VALUE (NULL, #{employeeName}, #{employeeNo}, #{password}, #{sex}, #{phone}, #{stats});
     </insert>
 
     <update id="updateemployee" parameterType="com.guigu.code.pojo.Employee">
-        UPDATE employee SET employee_name=#{employeeName},employee_no=#{employeeNo},PASSWORD=#{password},sex=#{sex},phone=#{phone},stats=#{stats} WHERE id=#{id};
+        UPDATE employee
+        SET employee_name=#{employeeName},
+            employee_no=#{employeeNo},
+            PASSWORD=#{password},
+            sex=#{sex},
+            phone=#{phone},
+            stats=#{stats}
+        WHERE id = #{id};
     </update>
 
     <select id="selectbyempid" parameterType="java.lang.Integer" resultType="com.guigu.code.pojo.Roles">
@@ -33,5 +46,13 @@
             INNER JOIN employee_post ON employee.`id`=employee_post.`employee_id`
                                 INNER JOIN post ON employee_post.`post_id`=post.`id`
                                         WHERE employee.`id`=#{param1};
+    </select>
+
+    <select id="selectBuyer" resultType="com.guigu.code.pojo.Employee">
+        SELECT e.*
+        FROM `employee` e
+                 LEFT JOIN `employee_post` ep ON e.`id` = ep.`employee_id`
+                 LEFT JOIN `post` p ON ep.`post_id` = p.`id`
+        WHERE p.`post_name` = '采购员'
     </select>
 </mapper>
