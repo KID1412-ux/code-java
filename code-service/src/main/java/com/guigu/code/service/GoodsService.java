@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.guigu.code.dto.goods.search;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.GoodsWarehouse;
-import com.guigu.code.pojo.MyGoods;
 
 import java.util.List;
 
@@ -28,12 +27,4 @@ public interface GoodsService extends IService<Goods> {
 
     //商品分类模糊查询
     PageInfo<Goods> selectFLGoods(Integer pageNo, Integer pageSize, search tj);
-
-    /**
-     * 分页查询
-     *
-     * @param goods
-     * @return
-     */
-    PageInfo<MyGoods> select(Integer pageNo, Integer pageSize, Goods goods);
 }

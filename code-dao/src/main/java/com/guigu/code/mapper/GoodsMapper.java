@@ -28,11 +28,4 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     //商品分类模糊查询
     List<Goods> selectFLGoods(search tj);
-
-    /**
-     * 查询所以的商品信息及其库存
-     * @param goods
-     * @return
-     */
-    List<MyGoods> select(Goods goods);
 }
