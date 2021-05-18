@@ -1,17 +1,12 @@
-package com.guigu.code.mapper;
+package com.guigu.code.service;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.guigu.code.pojo.Competence;
 import com.guigu.code.pojo.Roles;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author KID1412
- * @Date 2021/4/26 21:15
- */
-public interface RolesMapper extends BaseMapper<Roles> {
+public interface RolesService extends IService<Roles> {
     //查询所有角色
     List<Roles> selectallroles();
     //添加新角色

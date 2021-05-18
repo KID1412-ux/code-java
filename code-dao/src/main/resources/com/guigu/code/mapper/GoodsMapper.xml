@@ -32,6 +32,14 @@
           AND supplier_id = 0
           AND goods_describe LIKE #{name}
     </select>
+    <select id="selectFLGoods" resultType="com.guigu.code.pojo.Goods" parameterType="com.guigu.code.dto.goods.search">
+        SELECT *
+        FROM goods
+        WHERE goods_state = 0
+          AND supplier_id = 0
+          AND first_kind_id=#{flID}
+          AND goods_describe LIKE #{name}
+    </select>
     <select id="select" parameterType="com.guigu.code.pojo.Goods" resultType="com.guigu.code.pojo.MyGoods">
         SELECT *
         FROM `goods` g

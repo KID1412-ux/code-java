@@ -164,7 +164,10 @@ public class GoodsDataMaintainController {
             queryWrapper.eq("third_kind_id", goods.getThirdKindId());
         }
         queryWrapper.eq("supplier_id", "0");
-        IPage<Goods> iPage = this.goodsService.page(new Page<>(pageNo, pageSize), queryWrapper);
+            IPage<Goods> iPage = this.goodsService.page(new Page<>(pageNo, pageSize), queryWrapper);
+        System.out.println("-----------");
+        System.out.println(iPage);
+        System.out.println("-----------");
         return iPage;
     }
 
@@ -183,8 +186,7 @@ public class GoodsDataMaintainController {
             String path = request.getServletContext().getRealPath("/img/goods");
             try {
                 fileObj.transferTo(new File(path, fileObj.getOriginalFilename()));
-
-                goods.setImageUrl("img/goods" + fileObj.getOriginalFilename());
+                goods.setImageUrl("img/goods/" + fileObj.getOriginalFilename());
             } catch (IOException e) {
 
             }
@@ -226,7 +228,7 @@ public class GoodsDataMaintainController {
             String path = request.getServletContext().getRealPath("/img/goods");
             try {
                 fileObj.transferTo(new File(path, fileObj.getOriginalFilename()));
-                goods.setImageUrl("img/goods" + fileObj.getOriginalFilename());
+                goods.setImageUrl("img/goods/" + fileObj.getOriginalFilename());
             } catch (IOException e) {
 
             }
