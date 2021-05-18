@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.GoodsType;
 import com.guigu.code.pojo.MyGoods;
+import com.guigu.code.pojo.Users;
 import com.guigu.code.service.GoodsService;
 import com.guigu.code.service.GoodsTypeService;
 import com.guigu.code.utils.Node;
