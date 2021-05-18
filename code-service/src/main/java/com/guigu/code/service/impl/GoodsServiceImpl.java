@@ -3,6 +3,7 @@ package com.guigu.code.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.guigu.code.dto.goods.search;
 import com.guigu.code.mapper.GoodsMapper;
 import com.guigu.code.mapper.GoodsWarehouseMapper;
 import com.guigu.code.pojo.Goods;
@@ -39,12 +40,32 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    public List<Goods> selectGoodsByGoodName(String name) {
-        return goodsMapper.selectGoodsByGoodName(name);
+    public PageInfo<Goods> selectGoodsByGoodName(Integer pageNo, Integer pageSize, String name) {
+        PageHelper.startPage(pageNo, pageSize, true, null, null);
+        List<Goods> goods = goodsMapper.selectGoodsByGoodName(name);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        return pageInfo;
     }
 
     @Override
     public GoodsWarehouse selectGoodsWarehouseByGoodsId(Integer id) {
         return goodsWarehouseMapper.selectGoodsWarehouseByGoodsId(id);
     }
+
+    @Override
+    public PageInfo<Goods> selectFLGoods(Integer pageNo, Integer pageSize, search tj) {
+        PageHelper.startPage(pageNo, pageSize, true, null, null);
+        List<Goods> goods = goodsMapper.selectFLGoods(tj);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<MyGoods> select(Integer pageNo, Integer pageSize, Goods goods) {
+        PageHelper.startPage(pageNo, pageSize, true, null, null);
+        List<MyGoods> myGoods = this.goodsMapper.select(goods);
+        PageInfo<MyGoods> pageInfo = new PageInfo<>(myGoods);
+        return pageInfo;
+    }
+
 }

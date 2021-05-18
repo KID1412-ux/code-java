@@ -29,7 +29,7 @@
     <update id="fail" parameterType="java.lang.Integer">
         UPDATE users
         SET merchant_audit_status =2
-        WHERE merchant_id = #{param1};
+        WHERE id = #{param1};
     </update>
 
     <select id="selectmerchant" resultType="com.guigu.code.pojo.Users">
@@ -51,7 +51,7 @@
             merchant_phone=#{merchantPhone},
             delivery_address=#{deliveryAddress},
             merchant_stats=#{merchantStats}
-        WHERE merchant_id = #{merchantId}
+        WHERE id = #{merchantId}
     </update>
 
     <update id="passsupplier" parameterType="java.lang.Integer">

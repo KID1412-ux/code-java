@@ -1,18 +1,19 @@
 package com.guigu.code.controller;
 
+import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.Loginformation;
 import com.guigu.code.pojo.Users;
 import com.guigu.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
-
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping("user")
 public class UserController {
@@ -26,7 +27,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("userLogin")
-    @ResponseBody
+    
     public Users userLogin(String userName, String password) {
         return userService.userLogin(userName, password);
     }
@@ -38,29 +39,59 @@ public class UserController {
      * @return
      */
     @RequestMapping("selectOneUser")
-    @ResponseBody
+    
     public Users selectOneUser(String userName) {
         return userService.selectOneUser(userName);
     }
 
     @RequestMapping("insertUser")
-    @ResponseBody
     public int insertUser(Users user) {
         return userService.insertUser(user);
     }
-
+    @RequestMapping("updateUser")
+    public boolean updateUser(Users user, MultipartFile userImage, HttpServletRequest request) {
+        System.out.println(user);
+        if (userImage != null&&userImage!=null) {
+            //获取当前项目发布地址/img
+            String path = request.getServletContext().getRealPath("/img/users");
+            try {
+                userImage.transferTo(new File(path, userImage.getOriginalFilename()));
+                user.setUserImage("img/users/" + userImage.getOriginalFilename());
+            } catch (IOException e) {
+            }
+        }
+        boolean result = this.userService.updateById(user);
+        return result;
+    }
     /*查询所有商户审核信息*/
     /*查询所有供应商审核信息*/
     @RequestMapping("selectallmerchant")
-    @ResponseBody
     public List<Users> selectallmerchant() {
         List<Users> users = userService.selectallmerchant();
         return users;
     }
-
+    //商户申请
+    @RequestMapping("merchantApply")
+    public boolean merchantApply(Users user, MultipartFile fileObj1, MultipartFile fileObj2, HttpServletRequest request) {
+        System.out.println(user);
+        if (fileObj1 != null&&fileObj2!=null) {
+            //获取当前项目发布地址/img
+            String path = request.getServletContext().getRealPath("/img/users");
+            try {
+                fileObj1.transferTo(new File(path, fileObj1.getOriginalFilename()));
+                user.setMerchantShopImage("img/users/" + fileObj1.getOriginalFilename());
+                fileObj2.transferTo(new File(path, fileObj2.getOriginalFilename()));
+                user.setMerchantPermitImage("img/users/" + fileObj2.getOriginalFilename());
+            } catch (IOException e) {
+            }
+        }
+        user.setMerchantAuditStatus("0");
+        boolean result = this.userService.updateById(user);
+        return result;
+    }
     /*通过商户审核*/
     @RequestMapping("pass")
-    @ResponseBody
+    
     public String pass(Integer id) {
         int pass = userService.pass(id);
         return "成功";
@@ -68,14 +99,14 @@ public class UserController {
 
     /*不通过商户审核*/
     @RequestMapping("fail")
-    @ResponseBody
+    
     public String fail(Integer id) {
         int pass = userService.fail(id);
         return "成功";
     }
 
     @RequestMapping("selectmerchant")
-    @ResponseBody
+    
     /*查询所有商户*/
     public List<Users> selectmerchant() {
         List<Users> list = userService.selectmerchant();
@@ -83,7 +114,7 @@ public class UserController {
     }
 
     @RequestMapping("selectbymerchantId")
-    @ResponseBody
+    
     /*根据商户ID查询商户*/
     public Users selectbymerchantId(Integer id) {
         Users users = userService.selectbymerchantId(id);
@@ -91,7 +122,7 @@ public class UserController {
     }
 
     @RequestMapping("updatemerchant")
-    @ResponseBody
+    
     /*修改商户信息*/
     public String updatemerchant(Users users) {
         System.out.println(users);
@@ -100,7 +131,7 @@ public class UserController {
     }
 
     @RequestMapping("passsupplier")
-    @ResponseBody
+    
     /*通过供应商审核*/
     public String passsupplier(Integer id) {
         int passsupplier = userService.passsupplier(id);
@@ -109,7 +140,7 @@ public class UserController {
 
     /*不通过供应商审核*/
     @RequestMapping("failsupplier")
-    @ResponseBody
+    
     public String failsupplier(Integer id) {
         int failsupplier = userService.failsupplier(id);
         return "不通过";
@@ -117,7 +148,7 @@ public class UserController {
 
     /*查询所有供应商审核信息*/
     @RequestMapping("selectallsupplier")
-    @ResponseBody
+    
     public List<Users> selectallsupplier() {
         List<Users> users = userService.selectallsupplier();
         return users;
@@ -125,7 +156,7 @@ public class UserController {
 
     /*查询所有的供应商*/
     @RequestMapping("selectsupplier")
-    @ResponseBody
+    
     public List<Users> selectsupplier() {
         List<Users> users = userService.selectsupplier();
         return users;
@@ -133,7 +164,7 @@ public class UserController {
 
     /*根据ID查询供应商*/
     @RequestMapping("selectsupplierbyid")
-    @ResponseBody
+    
     public Users selectsupplierbyid(Integer id) {
         Users users = userService.selectsupplierbyid(id);
         return users;
@@ -141,7 +172,7 @@ public class UserController {
 
     /*修改供应商信息*/
     @RequestMapping("updatesupplier")
-    @ResponseBody
+    
     public String updatesupplier(Users users) {
         int updatesupplier = userService.updatesupplier(users);
         return "修改成功";
@@ -149,7 +180,7 @@ public class UserController {
 
     /*不通过反馈信息*/
     @RequestMapping("insertloginformation")
-    @ResponseBody
+    
     public String insertloginformation(Loginformation log) {
         System.out.println(log);
         int i = userService.insertloginformation(log);
@@ -158,7 +189,7 @@ public class UserController {
 
     //通过ID查询用户
     @RequestMapping("selectUserByID")
-    @ResponseBody
+    
     public Users selectUserByID(String userID) {
         Integer ID = Integer.parseInt(userID);
         Users users = userService.selectUserById(ID);

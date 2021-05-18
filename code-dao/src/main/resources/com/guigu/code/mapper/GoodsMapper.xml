@@ -32,4 +32,32 @@
           AND supplier_id = 0
           AND goods_describe LIKE #{name}
     </select>
+    <select id="selectFLGoods" resultType="com.guigu.code.pojo.Goods" parameterType="com.guigu.code.dto.goods.search">
+        SELECT *
+        FROM goods
+        WHERE goods_state = 0
+          AND supplier_id = 0
+          AND first_kind_id=#{flID}
+          AND goods_describe LIKE #{name}
+    </select>
+    <select id="select" parameterType="com.guigu.code.pojo.Goods" resultType="com.guigu.code.pojo.MyGoods">
+        SELECT *
+        FROM `goods` g
+        WHERE g.`supplier_id` = '0'
+        <if test="goodsName != '' and goodsName != null">
+            AND g.`goods_name` LIKE CONCAT('%', #{goodsName}, '%')
+        </if>
+        <if test="goodsState != '' and goodsState != null">
+            AND g.`goods_state` = #{goodsState}
+        </if>
+        <if test="firstKindId != '' and firstKindId != null">
+            AND g.`first_kind_id` = #{firstKindId}
+        </if>
+        <if test="secondKindId != '' and secondKindId != null">
+            AND g.`second_kind_id` = #{secondKindId}
+        </if>
+        <if test="thirdKindId != '' and thirdKindId != null">
+            AND g.`third_kind_id` = #{thirdKindId}
+        </if>
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.guigu.code.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.guigu.code.dto.goods.search;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.MyGoods;
 
@@ -25,4 +26,13 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     //首页商品模糊查询
     List<Goods> selectGoodsByGoodName(String name);
 
+    //商品分类模糊查询
+    List<Goods> selectFLGoods(search tj);
+
+    /**
+     * 查询所以的商品信息及其库存
+     * @param goods
+     * @return
+     */
+    List<MyGoods> select(Goods goods);
 }

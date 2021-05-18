@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.GoodsType;
+import com.guigu.code.pojo.MyGoods;
+import com.guigu.code.pojo.Users;
 import com.guigu.code.service.GoodsService;
 import com.guigu.code.service.GoodsTypeService;
 import com.guigu.code.utils.Node;
@@ -173,8 +175,7 @@ public class GoodsDataMaintainController {
             String path = request.getServletContext().getRealPath("/img/goods");
             try {
                 fileObj.transferTo(new File(path, fileObj.getOriginalFilename()));
-
-                goods.setImageUrl("img/goods" + fileObj.getOriginalFilename());
+                goods.setImageUrl("img/goods/" + fileObj.getOriginalFilename());
             } catch (IOException e) {
 
             }
@@ -214,7 +215,7 @@ public class GoodsDataMaintainController {
             String path = request.getServletContext().getRealPath("/img/goods");
             try {
                 fileObj.transferTo(new File(path, fileObj.getOriginalFilename()));
-                goods.setImageUrl("img/goods" + fileObj.getOriginalFilename());
+                goods.setImageUrl("img/goods/" + fileObj.getOriginalFilename());
             } catch (IOException e) {
 
             }
@@ -225,6 +226,7 @@ public class GoodsDataMaintainController {
 
     /**
      * 根据id删除单个商品信息
+     *
      * @param id
      * @return
      */
