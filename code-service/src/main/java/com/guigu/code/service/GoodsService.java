@@ -31,6 +31,7 @@ public interface GoodsService extends IService<Goods> {
 
     /**
      * 分页查询
+     *
      * @param goods
      * @return
      */

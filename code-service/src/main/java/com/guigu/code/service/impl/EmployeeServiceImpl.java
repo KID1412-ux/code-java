@@ -58,4 +58,10 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         List<Post> list = employeeMapper.selectpostbyid(id);
         return list;
     }
+
+    @Override
+    public List<Employee> selectBuyer() {
+        List<Employee> employees = this.employeeMapper.selectBuyer();
+        return employees;
+    }
 }

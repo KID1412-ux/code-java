@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -38,6 +39,7 @@ public class Purchase {
     /**
      * 登记日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField("road_time")
     private Date roadTime;
 
@@ -50,11 +52,12 @@ public class Purchase {
     /**
      * 审核时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField("check_time")
     private Date checkTime;
 
     /**
-     * 状态，0提交，1审核，2受理
+     * 状态，0提交，1审核通过，2审核不通过，3处理
      */
     @TableField("stats")
     private String stats;

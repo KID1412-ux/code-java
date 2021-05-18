@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.PurchaseMapper">
+    <select id="select" parameterType="com.guigu.code.pojo.MyPurchase" resultType="com.guigu.code.pojo.MyPurchase">
+        SELECT `purchase`.*, e.`employee_name`, u.`supplier_name` FROM `purchase` LEFT JOIN `employee` e ON
+        `purchase`.`purchase_employee_id` = e.`id` LEFT JOIN
+        `employee_post` ep ON e.`id` = ep.`employee_id` LEFT JOIN `post` p ON ep.`post_id` = p.`id` LEFT JOIN `users` u
+        ON `purchase`.`supplier_id` = u.`id`
+        <where>
+            p.`post_name` = '采购员' AND u.`merchant_audit_status` = '1' AND u.`merchant_stats` = '0'
+            <if test="purchaseNo != '' and purchaseNo != null">
+                AND `purchase`.`purchase_no` = #{purchaseNo}
+            </if>
+            <if test="purchaseEmployeeId != null">
+                AND `purchase`.`purchase_employee_id` = #{purchaseEmployeeId}
+            </if>
+            <if test="stats != null and stats != ''">
+                AND `purchase`.`stats` = #{stats}
+            </if>
+            <if test="stats == null or stats == ''">
+                AND `purchase`.`stats` IN ('1', '2')
+            </if>
+        </where>
+    </select>
+    <select id="selectById" parameterType="int" resultType="com.guigu.code.pojo.MyPurchase">
+        SELECT `purchase`.*, e.`employee_name`, u.`supplier_name` FROM `purchase` LEFT JOIN `employee` e ON
+        `purchase`.`purchase_employee_id` = e.`id` LEFT JOIN
+        `employee_post` ep ON e.`id` = ep.`employee_id` LEFT JOIN `post` p ON ep.`post_id` = p.`id` LEFT JOIN `users` u
+        ON `purchase`.`supplier_id` = u.`id`
+        <where>
+            p.`post_name` = '采购员' AND u.`merchant_audit_status` = '1' AND u.`merchant_stats` = '0'
+            AND `purchase`.`id` = #{id}
+        </where>
+    </select>
+</mapper>

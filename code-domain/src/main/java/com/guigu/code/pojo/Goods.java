@@ -43,7 +43,7 @@ public class Goods {
      * 销量
      */
     @TableField("goods_sales")
-            private Integer goodsSales;
+    private Integer goodsSales;
 
     /**
      * 价格
