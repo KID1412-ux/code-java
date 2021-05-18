@@ -2,6 +2,8 @@ package com.guigu.code.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.guigu.code.pojo.Employee;
+import com.guigu.code.pojo.Post;
+import com.guigu.code.pojo.Roles;
 
 import java.util.List;
 

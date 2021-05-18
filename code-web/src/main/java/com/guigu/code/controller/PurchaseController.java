@@ -3,13 +3,18 @@ package com.guigu.code.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageInfo;
 import com.guigu.code.pojo.Employee;
 import com.guigu.code.pojo.Goods;
+import com.guigu.code.pojo.Loginformation;
+import com.guigu.code.pojo.MyPurchase;
+import com.guigu.code.pojo.MyPurchaseDetail;
 import com.guigu.code.pojo.Purchase;
 import com.guigu.code.pojo.PurchaseDetail;
 import com.guigu.code.pojo.Users;
 import com.guigu.code.service.EmployeeService;
 import com.guigu.code.service.GoodsService;
+import com.guigu.code.service.LogInformationService;
 import com.guigu.code.service.PurchaseDetailService;
 import com.guigu.code.service.PurchaseService;
 import com.guigu.code.service.UserService;
@@ -54,9 +59,11 @@ public class PurchaseController {
     @Autowired
     private PurchaseDetailService purchaseDetailService;
 
+    @Autowired
+    private LogInformationService logInformationService;
+
     /**
      * 分页查询
-     *
      * @param pageNo
      * @param pageSize
      * @param goods
@@ -85,7 +92,6 @@ public class PurchaseController {
 
     /**
      * 根据id批量查询商品信息
-     *
      * @param ids
      * @return
      */
@@ -224,6 +230,82 @@ public class PurchaseController {
     @RequestMapping("saveDetailBatch")
     public boolean saveDetailBatch(@RequestBody List<PurchaseDetail> batch) {
         boolean result = this.purchaseDetailService.saveBatch(batch);
+        return result;
+    }
+
+    /**
+     * 分页查询
+     * @param pageNo
+     * @param pageSize
+     * @param myPurchase
+     * @return
+     */
+    @RequestMapping("queryByPage")
+    public PageInfo<MyPurchase> queryPurchaseByStats(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize, MyPurchase myPurchase) {
+        PageInfo<MyPurchase> pageInfo = this.purchaseService.queryByPage(pageNo, pageSize, myPurchase);
+        return pageInfo;
+    }
+
+    /**
+     * 根据采购id查询相关的采购详细
+     * @param purchaseId
+     * @return
+     */
+    @RequestMapping("queryDetailByPurchaseId")
+    public List<MyPurchaseDetail> queryDetailByPurchaseId(int purchaseId) {
+        List<MyPurchaseDetail> myPurchaseDetails = this.purchaseDetailService.selectByPurchaseId(purchaseId);
+        return myPurchaseDetails;
+    }
+
+    /**
+     * 根据采购id查询其审核不通过的详细信息
+     * @param log
+     * @return
+     */
+    @RequestMapping("queryLogByParentID")
+    public Loginformation queryLogByParentID(Loginformation log) {
+        QueryWrapper<Loginformation> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("parent_id", log.getParentID());
+        queryWrapper.eq("log_type", "采购单审核不通过");
+        List<Loginformation> logs = this.logInformationService.list(queryWrapper);
+        if (logs.size() > 0) {
+            Loginformation loginformation = logs.get(0);
+            return loginformation;
+        }
+        return null;
+    }
+
+    /**
+     * 根据id查询单个采购单信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("queryPurchaseById")
+    public MyPurchase queryPurchaseById (int id) {
+        MyPurchase myPurchase = this.purchaseService.selectById(id);
+        return myPurchase;
+    }
+
+    /**
+     * 根据id修改采购单信息
+     * @param purchase
+     * @return
+     */
+    @RequestMapping("updatePurchase")
+    public boolean updatePurchase(Purchase purchase) {
+        purchase.setCheckTime(new Date());
+        boolean result = this.purchaseService.updateById(purchase);
+        return result;
+    }
+
+    /**
+     * 为审核不通过的采购单保存详细信息
+     * @param log
+     * @return
+     */
+    @RequestMapping("saveLog")
+    public boolean saveLog(Loginformation log) {
+        boolean result = this.logInformationService.save(log);
         return result;
     }
 }
