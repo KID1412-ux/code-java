@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.MerchantOrderMapper">
+    <select id="selectMerchantOrders" parameterType="com.guigu.code.dto.users.MerchantOrderDto" resultType="com.guigu.code.pojo.MyMerchantOrder">
+        SELECT mo.* ,goods_id,SUM(goods_amount) AS goods_amount,goods_name,image_url FROM merchant_order mo
+        inner JOIN merchant_order_detail mol ON mo.id = mol.merchant_order_id
+        inner JOIN goods g ON mol.goods_id =g.id
+        <where>
+            merchant_id=#{merchantId} and stats=#{stats}
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name like concat('%',#{goodsName},'%')
+            </if>
+        </where>
+        GROUP BY g.goods_name
+    </select>
+</mapper>

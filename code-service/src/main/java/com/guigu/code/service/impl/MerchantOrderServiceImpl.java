@@ -1,10 +1,15 @@
 package com.guigu.code.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.guigu.code.dto.users.MerchantOrderDto;
 import com.guigu.code.mapper.MerchantOrderMapper;
 import com.guigu.code.pojo.MerchantOrder;
+import com.guigu.code.pojo.MyMerchantOrder;
 import com.guigu.code.service.MerchantOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Description
@@ -14,4 +19,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MerchantOrderServiceImpl extends ServiceImpl<MerchantOrderMapper, MerchantOrder> implements MerchantOrderService {
+    @Autowired
+    private MerchantOrderMapper merchantOrderMapper;
+    @Override
+    public List<MyMerchantOrder> selectMerchantOrders(MerchantOrderDto dto) {
+        return merchantOrderMapper.selectMerchantOrders(dto);
+    }
 }

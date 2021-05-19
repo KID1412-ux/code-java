@@ -36,8 +36,8 @@ public class StockDetail {
     /**
      * 入库数量
      */
-    @TableField("goods_name")
-    private Integer goodsName;
+    @TableField("goods_amount")
+    private Integer goodsAmount;
 
 
 
