@@ -79,10 +79,6 @@ public class GoodsController {
     @RequestMapping("Search")
 //    @CrossOrigin
     public PageInfo<Goods> Search(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "8") Integer pageSize, String search, Integer flID) {
-        System.out.println("-----------");
-        System.out.println(search);
-        System.out.println(flID);
-        System.out.println("-----------");
         String name = "%" + search + "%";
         search tj = new search();
         tj.setName(name);
@@ -93,7 +89,6 @@ public class GoodsController {
         } else {
             GoodsSearch=goodsService.selectFLGoods(pageNo, pageSize, tj);
         }
-        System.out.println(GoodsSearch);
         return GoodsSearch;
     }
 

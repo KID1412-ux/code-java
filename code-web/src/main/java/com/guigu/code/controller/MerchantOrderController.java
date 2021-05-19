@@ -85,9 +85,6 @@ public class MerchantOrderController {
         map2.put("value",(zj/10));
         list.add(map2);
 
-        System.out.println("3333333333");
-        System.out.println(list);
-        System.out.println("3333333333");
         return list;
     }
 
