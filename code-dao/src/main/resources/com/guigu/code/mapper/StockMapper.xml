@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.code.mapper.StockMapper">
-
+    <select id="select" parameterType="com.guigu.code.pojo.Stock" resultType="com.guigu.code.pojo.MyStock">
+        SELECT s.*, u.`merchant_name` FROM `stock` s LEFT JOIN `users` u ON s.`supplier_id` = u.`id`
+        <where>
+            s.`id` = #{id}
+        </where>
+    </select>
 </mapper>

@@ -1,6 +1,11 @@
 package com.guigu.code.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.guigu.code.dto.stock.StockDto;
+import com.guigu.code.pojo.MyStock;
+import com.guigu.code.pojo.MyStockDetail;
 import com.guigu.code.pojo.Stock;
 import com.guigu.code.pojo.StockDetail;
 import com.guigu.code.service.StockDetailService;
@@ -12,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -61,22 +65,65 @@ public class StockController {
         return result;
     }
 
-    //@RequestMapping("page")
-    //public List<Stock> page(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize, Stock stock, Date StartingTime, Date endTime) {
-    //    QueryWrapper<Stock> queryWrapper = new QueryWrapper<>();
-    //    if (stock.getStockNo() != null && !stock.getStockNo().isEmpty()) {
-    //        queryWrapper.like("stock_no", stock.getStockNo());
-    //    }
-    //    if (stock.getRegisterStats() != null && !stock.getRegisterStats().isEmpty()) {
-    //        queryWrapper.eq("register_stats", stock.getRegisterStats());
-    //    } else {
-    //        queryWrapper.in("register_stats","1", "2");
-    //    }
-    //    if (StartingTime != null) {
-    //
-    //    }
-    //    if (endTime != null) {
-    //
-    //    }
-    //}
+    @RequestMapping("page")
+    public IPage<Stock> page(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize, StockDto dto) {
+        QueryWrapper<Stock> queryWrapper = new QueryWrapper<>();
+        if (dto.getSearch_stockNo() != null && !dto.getSearch_stockNo().isEmpty()) {
+            queryWrapper.like("stock_no", dto.getSearch_stockNo());
+        }
+        if (dto.getSearch_registerStats() != null && !dto.getSearch_registerStats().isEmpty()) {
+            queryWrapper.eq("register_stats", dto.getSearch_registerStats());
+            if (dto.getSearch_StartingTime() != null && !dto.getSearch_StartingTime().isEmpty()) {
+                queryWrapper.ge("road_time", dto.getSearch_StartingTime());
+            }
+            if (dto.getSearch_endTime() != null && !dto.getSearch_endTime().isEmpty()) {
+                queryWrapper.le("road_time", dto.getSearch_endTime());
+            }
+
+        } else {
+            queryWrapper.in("register_stats", "2", "3");
+            if (dto.getSearch_StartingTime() != null && !dto.getSearch_StartingTime().isEmpty()) {
+                queryWrapper.ge("register_time", dto.getSearch_StartingTime());
+            }
+            if (dto.getSearch_endTime() != null && !dto.getSearch_endTime().isEmpty()) {
+                queryWrapper.le("register_time", dto.getSearch_endTime());
+            }
+        }
+        queryWrapper.eq("supplier_id", dto.getSearch_supplierId());
+        IPage<Stock> iPage = this.stockService.page(new Page<>(pageNo, pageSize), queryWrapper);
+        return iPage;
+    }
+
+    /**
+     * 查询单个入库信息
+     * @param stock
+     * @return
+     */
+    @RequestMapping("queryStockById")
+    public MyStock queryStockById(Stock stock) {
+        MyStock myStock = this.stockService.select(stock);
+        return myStock;
+    }
+
+    /**
+     * 根据入库id查询入库详情
+     * @param detail
+     * @return
+     */
+    @RequestMapping("queryDetail")
+    public List<MyStockDetail> queryDetail(StockDetail detail) {
+        List<MyStockDetail> myStockDetails = this.stockDetailService.getDetails(detail);
+        return myStockDetails;
+    }
+
+    /**
+     * 根据id修改入库信息
+     * @param stock
+     * @return
+     */
+    @RequestMapping("updateStockById")
+    public boolean updateStockById(Stock stock) {
+        boolean result = this.stockService.updateById(stock);
+        return result;
+    }
 }

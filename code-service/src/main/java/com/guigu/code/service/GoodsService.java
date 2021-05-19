@@ -28,12 +28,4 @@ public interface GoodsService extends IService<Goods> {
 
     //商品分类模糊查询
     PageInfo<Goods> selectFLGoods(Integer pageNo, Integer pageSize, search tj);
-
-    /**
-     * 分页查询
-     *
-     * @param goods
-     * @return
-     */
-    PageInfo<MyGoods> select(Integer pageNo, Integer pageSize, Goods goods);
 }
