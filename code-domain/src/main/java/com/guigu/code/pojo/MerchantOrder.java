@@ -54,9 +54,9 @@ public class MerchantOrder {
     private Date createTime;
 
     /**
-     * 用户id，外键
+     * 用户订单id，外键
      */
-    @TableField("user_id")
-    private Integer userId;
+    @TableField("user_order_id")
+    private Integer userOrderId;
 
 }
