@@ -14,4 +14,6 @@ import java.util.List;
  */
 public interface MerchantOrderMapper extends BaseMapper<MerchantOrder> {
     List<MyMerchantOrder> selectMerchantOrders(MerchantOrderDto dto);
+    List<MyMerchantOrder> selectAllMerchantOrder(MerchantOrderDto dto);
+    List<MyMerchantOrder> selectMerchantOrderDetail(Integer merchantOrderId);
 }
