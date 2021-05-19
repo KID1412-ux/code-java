@@ -25,4 +25,14 @@ public class MerchantOrderServiceImpl extends ServiceImpl<MerchantOrderMapper, M
     public List<MyMerchantOrder> selectMerchantOrders(MerchantOrderDto dto) {
         return merchantOrderMapper.selectMerchantOrders(dto);
     }
+
+    @Override
+    public List<MyMerchantOrder> selectAllMerchantOrder(MerchantOrderDto dto) {
+        return merchantOrderMapper.selectAllMerchantOrder(dto);
+    }
+
+    @Override
+    public List<MyMerchantOrder> selectMerchantOrderDetail(Integer merchantOrderId) {
+        return merchantOrderMapper.selectMerchantOrderDetail(merchantOrderId);
+    }
 }

@@ -2,6 +2,7 @@ package com.guigu.code.controller;
 
 import com.guigu.code.dto.users.MerchantOrderDto;
 import com.guigu.code.dto.users.UserOrderDto;
+import com.guigu.code.pojo.MerchantOrder;
 import com.guigu.code.pojo.MyMerchantOrder;
 import com.guigu.code.pojo.MyUserOrder;
 import com.guigu.code.service.MerchantOrderService;
@@ -22,8 +23,18 @@ public class MerchantOrderController {
 
     @RequestMapping("selectMerchantOrders")
     public List<MyMerchantOrder> selectMerchantOrders(MerchantOrderDto dto){
-        List<MyMerchantOrder> orders = merchantOrderService.selectMerchantOrders(dto);
-        System.out.println(orders.size());
-        return orders;
+        return merchantOrderService.selectMerchantOrders(dto);
+    }
+    @RequestMapping("selectAllMerchantOrder")
+    public List<MyMerchantOrder> selectAllMerchantOrder(MerchantOrderDto dto){
+        return merchantOrderService.selectAllMerchantOrder(dto);
+    }
+    @RequestMapping("receipt")
+    public boolean receipt(MerchantOrder merchantOrder){
+        return merchantOrderService.updateById(merchantOrder);
+    }
+    @RequestMapping("selectMerchantOrderDetail")
+    public List<MyMerchantOrder> selectMerchantOrderDetail(Integer merchantOrderId){
+        return merchantOrderService.selectMerchantOrderDetail(merchantOrderId);
     }
 }
