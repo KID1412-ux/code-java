@@ -19,4 +19,8 @@ public class MyMerchantOrder extends MerchantOrder{
     @TableField("image_url")
     private String imageUrl;
 
+    @TableField("goods_describe")
+    private String goodsDescribe;
+
+
 }

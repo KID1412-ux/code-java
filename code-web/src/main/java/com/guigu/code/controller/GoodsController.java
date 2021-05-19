@@ -1,5 +1,9 @@
 package com.guigu.code.controller;
 
+import org.springframework.util.StringUtils;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageInfo;
 import com.guigu.code.dto.goods.search;
 import com.guigu.code.pojo.Goods;
@@ -12,13 +16,17 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping("Goods")
+@RequestMapping("/Goods")
 public class GoodsController {
 
     @Autowired
@@ -95,4 +103,83 @@ public class GoodsController {
         return parent;
     }
 
+    @RequestMapping("/queryAllGoods.action")
+//    @CrossOrigin
+    public IPage<Goods> queryAllGoods(@RequestParam(value = "pageNo",defaultValue = "1") int pageNo,
+                                      @RequestParam(value = "pageSize",defaultValue = "5")int pageSize,
+                                      Goods goods){
+        QueryWrapper<Goods> queryWrapper =new QueryWrapper<Goods>();  // like %null%
+        if(!StringUtils.isEmpty(goods.getGoodsName())){
+            queryWrapper.like("goods_name",goods.getGoodsName());  // where  name like '%val%'
+        }
+        if(!StringUtils.isEmpty(goods.getGoodsPrice())){
+            queryWrapper.le("goods_price",goods.getGoodsPrice());  // where  name like '%val%'
+        }
+        queryWrapper.eq("supplier_id",goods.getId());  //根据id查询
+
+        IPage<Goods>  iPage= goodsService.page(new Page<Goods>(pageNo,pageSize),queryWrapper);
+        return iPage;
+    }
+    @RequestMapping("/queryById.action")
+//    @CrossOrigin
+    public Goods queryById(int id){
+        Goods goods=goodsService.getById(id);
+        return goods;
+    }
+
+    @RequestMapping("/deleteById.action")
+    public boolean deleteById(int id){
+        boolean flag=goodsService.removeById(id);
+        return flag;
+    }
+
+    //add
+    @RequestMapping("/addgoods.action")
+    public boolean addgoodsinfo(Goods goods,
+                                MultipartFile img2,
+                                HttpServletRequest request){
+
+        if(img2!=null){
+
+            //获取当前项目发布地址/img
+            String path =  request.getServletContext().getRealPath("/img");
+
+            try {
+                img2.transferTo(new File(path,img2.getOriginalFilename()));
+
+                goods.setImageUrl("img/"+img2.getOriginalFilename());
+            }catch (IOException e){
+            }
+
+        }
+
+        boolean res = goodsService.save(goods);
+        return res;
+    }
+
+    @RequestMapping("/updategoods.action")
+    public boolean updategoods(Goods goods, MultipartFile img2,
+                               HttpServletRequest request){
+        if(img2!=null){
+            //获取当前项目发布地址/img
+            String path =  request.getServletContext().getRealPath("/img");
+
+            try {
+                img2.transferTo(new File(path,img2.getOriginalFilename()));
+
+                goods.setImageUrl("img/"+img2.getOriginalFilename());
+            }catch (IOException e){
+            }
+
+        }
+        boolean flag=goodsService.updateById(goods);
+        return flag;
+    }
+
+    @RequestMapping("/queryAll.action")
+    public List<Goods> queryall(){
+        List<Goods> list = goodsService.list();
+        System.out.println(list);
+        return list;
+    }
 }

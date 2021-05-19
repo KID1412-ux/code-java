@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.DeliveryDetailMapper">
+    <select id="queryDeliveryDetail" resultType="com.guigu.code.pojo.MyDeliveryDetail" parameterType="Integer">
+        SELECT m.`id` id,m.`order_number` orderNumber,u.`user_nickname` userNickname,u.`delivery_address` deliveryAddress,m.`amount` amount,m.`stats` stats,m.`create_time` createTime
+        FROM `merchant_order` m INNER JOIN `users` u ON m.`merchant_id`=u.`id` INNER JOIN
+        `delivery_detail` d ON m.id=d.`merchant_order_id`
+        WHERE d.`delivery_id`=#{id}
+    </select>
+    <select id="queryMerchantDetail" resultType="com.guigu.code.pojo.MyMerchantDetail" parameterType="Integer">
+        SELECT g.`goods_name` goodsName,g.`image_url` imageUrl,
+        `goods_describe` goodsDescribe,g.`goods_price` goodsPrice,mo.`goods_amount` goodsAmount
+        FROM `merchant_order_detail` mo INNER JOIN `goods` g ON mo.`goods_id`=g.id
+        WHERE mo.`merchant_order_id`=#{id}
+    </select>
+    <select id="queryMerchantW" resultType="com.guigu.code.pojo.MyDeliveryDetail">
+        SELECT m.`id` id,m.`order_number` orderNumber,u.`user_nickname` userNickname,u.`delivery_address` deliveryAddress,m.`amount` amount,m.`stats` stats,m.`create_time` createTime FROM `merchant_order` m INNER JOIN `users` u ON m.`merchant_id`=u.`id`
+        WHERE m.`stats`=0
+    </select>
+</mapper>

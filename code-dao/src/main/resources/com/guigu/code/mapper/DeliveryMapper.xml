@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.DeliveryMapper">
+    <select id="queryAllDelivery" resultType="com.guigu.code.pojo.MyDelivery" parameterType="com.guigu.code.pojo.MyDelivery">
+SELECT d.`id` id,c.`car_name` carName,e.`employee_name` employeeName,d.`begin_time` beginTime,d.`amount` amount,`delivery_stats` deliveryStats  FROM `delivery` d INNER JOIN `car` c ON d.`car_id`=c.`id` INNER JOIN `employee` e ON d.`driver_id`=e.`id`
+        <where>
+            <if test="employeeName !=null and employeeName != ''">
+            and e.`employee_name` like CONCAT('%',#{employeeName},'%')
+            </if>
+            <if test="carName !=null and carName != ''">
+                and c.`car_name` like CONCAT('%',#{carName},'%')
+            </if>
+        </where>
+    </select>
+    <select id="queryDriver" resultType="com.guigu.code.pojo.Driver">
+        SELECT e.`id` id,e.`employee_name` name FROM `employee` e INNER JOIN `employee_post` ep ON e.`id`=ep.`employee_id` INNER JOIN `post` p ON p.`id`=ep.`post_id` WHERE p.`post_name`='司机' AND e.`stats`=0
+    </select>
+</mapper>
