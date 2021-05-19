@@ -1,8 +1,10 @@
 package com.guigu.code.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.Loginformation;
 import com.guigu.code.pojo.Users;
+import com.guigu.code.service.LogInformationService;
 import com.guigu.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private LogInformationService logInformationService;
 
     /**
      * 用户登录
@@ -147,6 +151,34 @@ public class UserController {
         System.out.println(users);
         int updatemerchant = userService.updatemerchant(users);
         return "修改成功";
+    }
+    //查询商户审核不通过原因
+    @RequestMapping("selectLogMerchant")
+    public Loginformation selectLogMerchant(Loginformation log) {
+            QueryWrapper<Loginformation> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("parent_id", log.getParentID());
+            queryWrapper.eq("log_type", "商户审核不通过");
+            List<Loginformation> logs = this.logInformationService.list(queryWrapper);
+            if (logs.size() > 0) {
+                Loginformation loginformation = logs.get(0);
+                return loginformation;
+            }
+            return null;
+        }
+
+    //查询供应商审核不通过原因
+    @RequestMapping("selectLogSupplier")
+    public Loginformation selectLogSupplier(Loginformation log) {
+        QueryWrapper<Loginformation> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("parent_id", log.getParentID());
+        queryWrapper.eq("log_type", "供应商审核不通过");
+        List<Loginformation> logs = this.logInformationService.list(queryWrapper);
+        System.out.println(logs);
+        if (logs.size() > 0) {
+            Loginformation loginformation = logs.get(0);
+            return loginformation;
+        }
+        return null;
     }
 
     @RequestMapping("passsupplier")

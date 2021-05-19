@@ -63,7 +63,7 @@ public class UserOrder {
     /**
      * 订单创建时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @TableField("create_time")
     private Date createTime;
 
