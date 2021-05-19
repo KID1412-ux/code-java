@@ -251,4 +251,30 @@ public class UserController {
 
         return users;
     }
+
+    //商户资料修改
+    @RequestMapping("UpdateMerchant")
+    public boolean UpdateMerchant(Users user,MultipartFile ShopImage, MultipartFile PermitImage,HttpServletRequest request){
+        if (ShopImage != null) {
+            //获取当前项目发布地址/img
+            String path = request.getServletContext().getRealPath("/img/users");
+            try {
+                ShopImage.transferTo(new File(path, ShopImage.getOriginalFilename()));
+                user.setMerchantShopImage("img/users/" + ShopImage.getOriginalFilename());
+            } catch (IOException e) {
+            }
+        }
+        if (PermitImage != null) {
+            //获取当前项目发布地址/img
+            String path = request.getServletContext().getRealPath("/img/users");
+            try {
+                PermitImage.transferTo(new File(path, PermitImage.getOriginalFilename()));
+                user.setMerchantPermitImage("img/users/" + PermitImage.getOriginalFilename());
+            } catch (IOException e) {
+            }
+        }
+        boolean b = userService.updateById(user);
+        return b;
+    }
+
 }
