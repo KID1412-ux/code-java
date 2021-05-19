@@ -47,7 +47,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    public GoodsWarehouse selectGoodsWarehouseByGoodsId(Integer id) {
+    public List<GoodsWarehouse> selectGoodsWarehouseByGoodsId(Integer id) {
         return goodsWarehouseMapper.selectGoodsWarehouseByGoodsId(id);
     }
 

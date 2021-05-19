@@ -24,7 +24,7 @@ public interface GoodsService extends IService<Goods> {
     PageInfo<Goods> selectGoodsByGoodName(Integer pageNo, Integer pageSize, String name);
 
     //根据商品ID查询商品库存
-    GoodsWarehouse selectGoodsWarehouseByGoodsId(Integer id);
+    List<GoodsWarehouse> selectGoodsWarehouseByGoodsId(Integer id);
 
     //商品分类模糊查询
     PageInfo<Goods> selectFLGoods(Integer pageNo, Integer pageSize, search tj);
