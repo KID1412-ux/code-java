@@ -9,4 +9,5 @@ import com.guigu.code.pojo.Stock;
  * @Date 2021/4/26 21:16
  */
 public interface StockMapper extends BaseMapper<Stock> {
+
 }

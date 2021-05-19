@@ -7,7 +7,7 @@
         `employee_post` ep ON e.`id` = ep.`employee_id` LEFT JOIN `post` p ON ep.`post_id` = p.`id` LEFT JOIN `users` u
         ON `purchase`.`supplier_id` = u.`id`
         <where>
-            p.`post_name` = '采购员' AND u.`merchant_audit_status` = '1' AND u.`merchant_stats` = '0'
+            p.`post_name` = '采购员'
             <if test="purchaseNo != '' and purchaseNo != null">
                 AND `purchase`.`purchase_no` LIKE CONCAT('%', #{purchaseNo}, '%')
             </if>

@@ -57,7 +57,7 @@ public class Purchase {
     private Date checkTime;
 
     /**
-     * 状态，0提交，1审核通过，2审核不通过，3处理
+     * 状态，0提交，1审核通过，2审核不通过，3供应商受理
      */
     @TableField("stats")
     private String stats;
