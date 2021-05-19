@@ -79,6 +79,10 @@ public class GoodsController {
     @RequestMapping("Search")
 //    @CrossOrigin
     public PageInfo<Goods> Search(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "8") Integer pageSize, String search, Integer flID) {
+        System.out.println("111111111");
+        System.out.println(search);
+        System.out.println(flID);
+        System.out.println("111111111");
         String name = "%" + search + "%";
         search tj = new search();
         tj.setName(name);
