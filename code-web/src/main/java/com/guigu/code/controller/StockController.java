@@ -264,4 +264,15 @@ public class StockController {
         boolean result = this.goodsWarehouseService.updateBatchById(newGW);
         return result;
     }
+
+    /**
+     * 根据id修改仓库信息
+     * @param warehouse
+     * @return
+     */
+    @RequestMapping("updateWarehouse")
+    public boolean updateWarehouse(Warehouse warehouse) {
+        boolean result = this.warehouseService.updateById(warehouse);
+        return result;
+    }
 }
