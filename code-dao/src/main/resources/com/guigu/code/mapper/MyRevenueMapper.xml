@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.MyRevenueMapper">
+    <select id="selectRevenue" resultType="com.guigu.code.pojo.MyRevenue">
+        SELECT mo.*,modl.goods_amount,g.goods_price FROM merchant_order AS mo
+        INNER JOIN merchant_order_detail AS modl ON mo.id=modl.merchant_order_id
+        INNER JOIN goods AS g ON modl.goods_id=g.id
+        WHERE mo.merchant_id=#{userId} AND mo.stats=3
+    </select>
+    <select id="selectTodayRevenue" resultType="com.guigu.code.pojo.MyRevenue" parameterType="com.guigu.code.dto.revenue.RevenueDto">
+        SELECT*FROM merchant_order AS mo INNER JOIN merchant_order_detail AS modl
+        ON mo.id=modl.merchant_order_id INNER JOIN goods AS g ON modl.goods_id=g.id
+        WHERE mo.create_time &gt; #{time1}
+          AND mo.create_time &lt; #{time2}
+          AND mo.merchant_id=#{id} AND mo.stats=3
+    </select>
+    <select id="selectDelivery" resultType="com.guigu.code.pojo.MyRevenue" parameterType="com.guigu.code.dto.revenue.RevenueDto">
+        SELECT * FROM merchant_order
+        WHERE merchant_id=#{id} AND stats=2
+    </select>
+    <select id="selectTodayTake" resultType="com.guigu.code.pojo.MyRevenue" parameterType="com.guigu.code.dto.revenue.RevenueDto">
+        SELECT * FROM merchant_order
+        WHERE merchant_id=#{id} AND stats=3
+        AND create_time &gt; #{time1}
+        AND create_time &lt; #{time2}
+    </select>
+    <select id="selectOrder" resultType="com.guigu.code.pojo.MyRevenue" parameterType="com.guigu.code.dto.revenue.RevenueDto">
+        SELECT * FROM merchant_order
+        WHERE merchant_id=#{id}
+    </select>
+    <select id="selectTake" resultType="com.guigu.code.pojo.MyRevenue" parameterType="com.guigu.code.dto.revenue.RevenueDto">
+        SELECT * FROM merchant_order
+        WHERE merchant_id=#{id} AND stats=3
+    </select>
+</mapper>
