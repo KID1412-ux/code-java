@@ -48,7 +48,14 @@ public class GoodsController {
         HashMap<String, Object> map = new HashMap<String, Object>();
         Integer goodId = Integer.parseInt(id);
         Goods good = goodsService.selectGoodById(goodId);
-        GoodsWarehouse warehouse = goodsService.selectGoodsWarehouseByGoodsId(goodId);
+        List<GoodsWarehouse> goodsWarehouses = goodsService.selectGoodsWarehouseByGoodsId(goodId);
+        GoodsWarehouse warehouse = new GoodsWarehouse();
+        int kc=0;
+        for (GoodsWarehouse ck:goodsWarehouses) {
+            kc+=ck.getGoodsAmount();
+        }
+        warehouse.setGoodsAmount(kc);
+
         map.put("good", good);
         map.put("warehouse", warehouse);
         return map;

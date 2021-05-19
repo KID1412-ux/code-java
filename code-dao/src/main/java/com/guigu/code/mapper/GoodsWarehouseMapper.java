@@ -3,6 +3,8 @@ package com.guigu.code.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.guigu.code.pojo.GoodsWarehouse;
 
+import java.util.List;
+
 /**
  * @Description
  * @Author KID1412
@@ -11,6 +13,6 @@ import com.guigu.code.pojo.GoodsWarehouse;
 public interface GoodsWarehouseMapper extends BaseMapper<GoodsWarehouse> {
 
     //根据商品ID查询商品库存
-    GoodsWarehouse selectGoodsWarehouseByGoodsId(Integer id);
+    List<GoodsWarehouse> selectGoodsWarehouseByGoodsId(Integer id);
 
 }
