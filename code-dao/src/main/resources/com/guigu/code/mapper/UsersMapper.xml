@@ -41,7 +41,7 @@
     <select id="selectbymerchantId" resultType="com.guigu.code.pojo.Users">
         SELECT *
         FROM users
-        WHERE merchant_id = #{param1};
+        WHERE id = #{param1};
     </select>
 
     <update id="updatemerchant" parameterType="com.guigu.code.pojo.Users">

@@ -68,8 +68,8 @@ public class RolesController {
     /*所有角色*/
     @RequestMapping("selectall")
     @ResponseBody
-    public IPage<Roles> selectallcompetence(@RequestParam(value = "pageNo",defaultValue = "1") int pageNo,
-                                               @RequestParam(value = "pageSize",defaultValue = "5")int pageSize,
+    public IPage<Roles> selectallcompetence(@RequestParam(value = "pageNo",defaultValue = "") int pageNo,
+                                               @RequestParam(value = "pageSize",defaultValue = "0")int pageSize,
                                                Roles  roles){
         QueryWrapper<Roles> queryWrapper=new QueryWrapper<Roles>();
         if(!StringUtils.isEmpty(roles.getRoleName())){

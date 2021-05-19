@@ -37,7 +37,7 @@ public class CompetenceController {
     @RequestMapping("selectallcompetence")
     @ResponseBody
     public IPage<Competence> selectallcompetence(@RequestParam(value = "pageNo",defaultValue = "1") int pageNo,
-                                                @RequestParam(value = "pageSize",defaultValue = "5")int pageSize,
+                                                @RequestParam(value = "pageSize",defaultValue = "100")int pageSize,
                                                 Competence competence){
         QueryWrapper<Competence> queryWrapper=new QueryWrapper<Competence>();
         if(!StringUtils.isEmpty(competence.getCompetenceName())){

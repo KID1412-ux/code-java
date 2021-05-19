@@ -13,6 +13,9 @@ public class MyMerchantOrder extends MerchantOrder{
     @TableField("goods_amount")
     private Integer goodsAmount;
 
+    @TableField("goods_price")
+    private String goodsPrice;
+
     @TableField("goods_name")
     private String goodsName;
 

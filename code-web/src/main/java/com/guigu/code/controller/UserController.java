@@ -1,5 +1,6 @@
 package com.guigu.code.controller;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guigu.code.pojo.Goods;
 import com.guigu.code.pojo.Loginformation;
@@ -46,10 +47,18 @@ public class UserController {
         return userService.selectOneUser(userName);
     }
 
+    @RequestMapping("selectAllUsers")
+    public List<Users> selectAllUsers() {
+        QueryWrapper<Users> wrapper = new QueryWrapper<>();
+        wrapper.eq("type","0");
+        return userService.list(wrapper);
+    }
+
     @RequestMapping("insertUser")
     public int insertUser(Users user) {
         return userService.insertUser(user);
     }
+
 
     @RequestMapping("updateUser")
     public boolean updateUser(Users user, MultipartFile userImageUrl, HttpServletRequest request) {
@@ -65,6 +74,12 @@ public class UserController {
         }
         boolean result = this.userService.updateById(user);
         return result;
+    }
+
+    //后台对用户进行操作（拉黑，恢复）
+    @RequestMapping("operate")
+    public boolean operate(Users user) {
+        return userService.updateById(user);
     }
 
     /*查询所有商户审核信息*/

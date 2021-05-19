@@ -5,7 +5,9 @@ import com.guigu.code.dto.users.UserOrderDto;
 import com.guigu.code.pojo.MerchantOrder;
 import com.guigu.code.pojo.MyMerchantOrder;
 import com.guigu.code.pojo.MyUserOrder;
+import com.guigu.code.pojo.UserOrder;
 import com.guigu.code.service.MerchantOrderService;
+import com.guigu.code.service.UserOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ import java.util.List;
 public class MerchantOrderController {
     @Autowired
     private MerchantOrderService merchantOrderService;
+    @Autowired
+    private UserOrderService userOrderService;
 
     @RequestMapping("selectMerchantOrders")
     public List<MyMerchantOrder> selectMerchantOrders(MerchantOrderDto dto){
@@ -31,7 +35,11 @@ public class MerchantOrderController {
     }
     @RequestMapping("receipt")
     public boolean receipt(MerchantOrder merchantOrder){
-        return merchantOrderService.updateById(merchantOrder);
+        merchantOrderService.updateById(merchantOrder);
+        UserOrder userOrder = new UserOrder();
+        userOrder.setId(merchantOrder.getUserOrderId());
+        userOrder.setOrderStats("2");
+        return userOrderService.updateById(userOrder);
     }
     @RequestMapping("selectMerchantOrderDetail")
     public List<MyMerchantOrder> selectMerchantOrderDetail(Integer merchantOrderId){
