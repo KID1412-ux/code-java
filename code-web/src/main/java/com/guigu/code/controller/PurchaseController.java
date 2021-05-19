@@ -127,6 +127,9 @@ public class PurchaseController {
         queryWrapper.ne("supplier_id", "0");
         queryWrapper.eq("goods_state", "0");
         List<Goods> supplierGoods = this.goodsService.list(queryWrapper);
+        if (supplierGoods.size() == 0) {
+            return null;
+        }
         List<Goods> firstList = new ArrayList<>();
         List<Goods> secondList = new ArrayList<>();
         List<Goods> thirdList = new ArrayList<>();
@@ -305,6 +308,35 @@ public class PurchaseController {
     @RequestMapping("saveLog")
     public boolean saveLog(Loginformation log) {
         boolean result = this.logInformationService.save(log);
+        return result;
+    }
+
+    /**
+     * 根据商品id批量修改商品销量
+     * @param goods
+     * @return
+     */
+    @RequestMapping("updateGoods")
+    public boolean updateGoods(@RequestBody List<Goods> goods) {
+        List<Integer> ids = new ArrayList<>();
+        for (Goods g : goods) {
+            ids.add(g.getId());
+        }
+        Collection<Goods> gs = this.goodsService.listByIds(ids);
+        List<Goods> newGS = new ArrayList<>();
+        for (Goods g : gs) {
+            for (Goods s : goods) {
+                if (g.getId() == s.getId()) {
+                    Goods obj = new Goods();
+                    int newSales = g.getGoodsSales() + s.getGoodsSales();
+                    obj.setId(g.getId());
+                    obj.setGoodsSales(newSales);
+                    newGS.add(obj);
+                    break;
+                }
+            }
+        }
+        boolean result = this.goodsService.updateBatchById(newGS);
         return result;
     }
 }

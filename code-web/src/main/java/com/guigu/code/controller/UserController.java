@@ -62,7 +62,6 @@ public class UserController {
 
     @RequestMapping("updateUser")
     public boolean updateUser(Users user, MultipartFile userImageUrl, HttpServletRequest request) {
-        System.out.println(user);
         if (userImageUrl != null) {
             //获取当前项目发布地址/img
             String path = request.getServletContext().getRealPath("/img/users");
@@ -93,7 +92,6 @@ public class UserController {
     //商户申请
     @RequestMapping("merchantApply")
     public boolean merchantApply(Users user, MultipartFile fileObj1, MultipartFile fileObj2, HttpServletRequest request) {
-        System.out.println(user);
         if (fileObj1 != null&&fileObj2!=null) {
             //获取当前项目发布地址/img
             String path = request.getServletContext().getRealPath("/img/users");
@@ -113,7 +111,6 @@ public class UserController {
     //供应商申请
     @RequestMapping("supplierApply")
     public boolean supplierApply(Users user, MultipartFile fileObj3, MultipartFile fileObj4, HttpServletRequest request) {
-        System.out.println(user);
         if (fileObj3 != null&&fileObj4!=null) {
             //获取当前项目发布地址/img
             String path = request.getServletContext().getRealPath("/img/users");
@@ -163,7 +160,6 @@ public class UserController {
 
     /*修改商户信息*/
     public String updatemerchant(Users users) {
-        System.out.println(users);
         int updatemerchant = userService.updatemerchant(users);
         return "修改成功";
     }
@@ -188,7 +184,6 @@ public class UserController {
         queryWrapper.eq("parent_id", log.getParentID());
         queryWrapper.eq("log_type", "供应商审核不通过");
         List<Loginformation> logs = this.logInformationService.list(queryWrapper);
-        System.out.println(logs);
         if (logs.size() > 0) {
             Loginformation loginformation = logs.get(0);
             return loginformation;
@@ -248,7 +243,6 @@ public class UserController {
     @RequestMapping("insertloginformation")
 
     public String insertloginformation(Loginformation log) {
-        System.out.println(log);
         int i = userService.insertloginformation(log);
         return "成功";
     }
@@ -259,11 +253,32 @@ public class UserController {
     public Users selectUserByID(String userID) {
         Integer ID = Integer.parseInt(userID);
         Users users = userService.selectUserById(ID);
-
-        System.out.println("aaaaaaaaaaaaaaaaaa");
-        System.out.println(users);
-        System.out.println("aaaaaaaaaaaaaaaaaa");
-
         return users;
     }
+
+    //商户资料修改
+    @RequestMapping("UpdateMerchant")
+    public boolean UpdateMerchant(Users user,MultipartFile ShopImage, MultipartFile PermitImage,HttpServletRequest request){
+        if (ShopImage != null) {
+            //获取当前项目发布地址/img
+            String path = request.getServletContext().getRealPath("/img/users");
+            try {
+                ShopImage.transferTo(new File(path, ShopImage.getOriginalFilename()));
+                user.setMerchantShopImage("img/users/" + ShopImage.getOriginalFilename());
+            } catch (IOException e) {
+            }
+        }
+        if (PermitImage != null) {
+            //获取当前项目发布地址/img
+            String path = request.getServletContext().getRealPath("/img/users");
+            try {
+                PermitImage.transferTo(new File(path, PermitImage.getOriginalFilename()));
+                user.setMerchantPermitImage("img/users/" + PermitImage.getOriginalFilename());
+            } catch (IOException e) {
+            }
+        }
+        boolean b = userService.updateById(user);
+        return b;
+    }
+
 }

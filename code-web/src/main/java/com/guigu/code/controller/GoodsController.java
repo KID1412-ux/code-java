@@ -48,7 +48,14 @@ public class GoodsController {
         HashMap<String, Object> map = new HashMap<String, Object>();
         Integer goodId = Integer.parseInt(id);
         Goods good = goodsService.selectGoodById(goodId);
-        GoodsWarehouse warehouse = goodsService.selectGoodsWarehouseByGoodsId(goodId);
+        List<GoodsWarehouse> goodsWarehouses = goodsService.selectGoodsWarehouseByGoodsId(goodId);
+        GoodsWarehouse warehouse = new GoodsWarehouse();
+        int kc=0;
+        for (GoodsWarehouse ck:goodsWarehouses) {
+            kc+=ck.getGoodsAmount();
+        }
+        warehouse.setGoodsAmount(kc);
+
         map.put("good", good);
         map.put("warehouse", warehouse);
         return map;
@@ -72,10 +79,10 @@ public class GoodsController {
     @RequestMapping("Search")
 //    @CrossOrigin
     public PageInfo<Goods> Search(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "8") Integer pageSize, String search, Integer flID) {
-        System.out.println("-----------");
+        System.out.println("111111111");
         System.out.println(search);
         System.out.println(flID);
-        System.out.println("-----------");
+        System.out.println("111111111");
         String name = "%" + search + "%";
         search tj = new search();
         tj.setName(name);
@@ -86,7 +93,6 @@ public class GoodsController {
         } else {
             GoodsSearch=goodsService.selectFLGoods(pageNo, pageSize, tj);
         }
-        System.out.println(GoodsSearch);
         return GoodsSearch;
     }
 
