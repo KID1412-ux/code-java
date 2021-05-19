@@ -127,6 +127,9 @@ public class PurchaseController {
         queryWrapper.ne("supplier_id", "0");
         queryWrapper.eq("goods_state", "0");
         List<Goods> supplierGoods = this.goodsService.list(queryWrapper);
+        if (supplierGoods.size() == 0) {
+            return null;
+        }
         List<Goods> firstList = new ArrayList<>();
         List<Goods> secondList = new ArrayList<>();
         List<Goods> thirdList = new ArrayList<>();

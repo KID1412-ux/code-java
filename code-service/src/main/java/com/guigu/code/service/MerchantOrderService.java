@@ -15,4 +15,8 @@ import java.util.List;
 public interface MerchantOrderService extends IService<MerchantOrder> {
     List<MyMerchantOrder> selectMerchantOrders(MerchantOrderDto dto);
 
+    List<MyMerchantOrder> selectAllMerchantOrder(MerchantOrderDto dto);
+
+    List<MyMerchantOrder> selectMerchantOrderDetail(Integer merchantOrderId);
+
 }

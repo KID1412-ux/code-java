@@ -33,6 +33,7 @@ public class DeliveryController {
     public PageInfo<MyDelivery> queryAllDelivery(@RequestParam(value = "pageNo",defaultValue = "1") int pageNo,
                                                  @RequestParam(value = "pageSize",defaultValue = "5")int pageSize,
                                                  MyDelivery myDelivery){
+        System.out.println(myDelivery);
         PageInfo<MyDelivery> myDeliveryPageInfo = deliveryService.queryAllDelivery(pageNo, pageSize, myDelivery);
         return myDeliveryPageInfo;
     }

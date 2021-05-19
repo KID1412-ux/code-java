@@ -22,5 +22,7 @@ public class MyMerchantOrder extends MerchantOrder{
     @TableField("goods_describe")
     private String goodsDescribe;
 
+    @TableField("user_nickname")
+    private String userNickname;
 
 }

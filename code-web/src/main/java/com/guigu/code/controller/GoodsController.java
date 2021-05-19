@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/Goods")
 public class GoodsController {
 
@@ -35,14 +36,14 @@ public class GoodsController {
     private GoodsTypeService goodsTypeService;
 
     @RequestMapping("rexiao")
-    @CrossOrigin
+//    @CrossOrigin
     public List<Goods> shouye() {
         List<Goods> goods = goodsService.selectPartGoods();
         return goods;
     }
 
     @RequestMapping("selectGoodById")
-    @CrossOrigin
+//    @CrossOrigin
     public HashMap<String, Object> selectGoodById(String id) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         Integer goodId = Integer.parseInt(id);
@@ -54,7 +55,7 @@ public class GoodsController {
     }
 
     @RequestMapping("tuijian")
-    @CrossOrigin
+//    @CrossOrigin
     public HashMap<String, Object> tuijian() {
         HashMap<String, Object> map = new HashMap<String, Object>();
         List<Goods> dianqi = goodsService.selectGoodsByFirstKindId(1);
@@ -69,7 +70,7 @@ public class GoodsController {
     }
 
     @RequestMapping("Search")
-    @CrossOrigin
+//    @CrossOrigin
     public PageInfo<Goods> Search(@RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "8") Integer pageSize, String search, Integer flID) {
         System.out.println("-----------");
         System.out.println(search);
@@ -90,7 +91,7 @@ public class GoodsController {
     }
 
     @RequestMapping("FenLei")
-    @CrossOrigin
+//    @CrossOrigin
     public List<GoodsType> FenLei() {
         List<GoodsType> goodsTypes = goodsTypeService.selectGoodsType();
         //一级分类
@@ -177,8 +178,10 @@ public class GoodsController {
     }
 
     @RequestMapping("/queryAll.action")
-    public List<Goods> queryall(){
-        List<Goods> list = goodsService.list();
+    public List<Goods> queryall(Integer id){
+        QueryWrapper<Goods> queryWrapper =new QueryWrapper<Goods>();
+        queryWrapper.eq("supplier_id",id);
+        List<Goods> list = goodsService.list(queryWrapper);
         System.out.println(list);
         return list;
     }
