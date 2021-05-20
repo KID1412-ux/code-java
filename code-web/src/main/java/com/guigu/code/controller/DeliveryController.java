@@ -85,7 +85,7 @@ public class DeliveryController {
                     DeliveryDetail deliveryDetail=new DeliveryDetail();
                     deliveryDetail.setDeliveryId(delivery.getId());
                     deliveryDetail.setMerchantOrderId(ids[i]);
-                    deliveryDetailService.save(deliveryDetail);
+                    deliveryDetailService.removeById(deliveryDetail.getId());
                     MerchantOrder merchantOrder=new MerchantOrder();
                     merchantOrder.setId(ids[i]);
                     merchantOrder.setStats("0");

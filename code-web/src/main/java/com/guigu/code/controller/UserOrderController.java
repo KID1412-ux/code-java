@@ -52,9 +52,9 @@ public class UserOrderController {
      */
     @RequestMapping("payUserOrder")
     @ResponseBody
-    public boolean payUserOrder(UserOrder userOrder){
-        return userOrderService.updateById(userOrder);
-
+    public Integer payUserOrder(UserOrder userOrder){
+        userOrderService.updateById(userOrder);
+        return userOrder.getId();
     }
     /**
      * 收货

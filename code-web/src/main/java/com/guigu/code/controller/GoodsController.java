@@ -191,4 +191,11 @@ public class GoodsController {
         System.out.println(list);
         return list;
     }
+
+    @RequestMapping("/queryAllG.action")
+    public List<Goods> queryAllG(){
+        List<Goods> list = goodsService.list();
+        System.out.println(list);
+        return list;
+    }
 }
