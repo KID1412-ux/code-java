@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.guigu.code.mapper.DeliveryMapper;
+import com.guigu.code.pojo.Count;
 import com.guigu.code.pojo.Delivery;
 import com.guigu.code.pojo.Driver;
 import com.guigu.code.pojo.MyDelivery;
@@ -28,6 +29,23 @@ public class DeliveryServiceImpl  extends ServiceImpl<DeliveryMapper, Delivery> 
     public List<Driver> queryDriver() {
         List<Driver> drivers = deliveryMapper.queryDriver();
         return drivers;
+    }
+
+    @Override
+    public MyDelivery queryDeliveryById(Integer id) {
+        MyDelivery myDelivery = deliveryMapper.queryDeliveryById(id);
+        return myDelivery;
+    }
+
+    @Override
+    public List<Count> queryCount(Integer id) {
+        List<Count> counts = deliveryMapper.queryCount(id);
+        return counts;
+    }
+
+    @Override
+    public Count queryOneCount(Integer id) {
+        return deliveryMapper.queryOneCount(id);
     }
 
 }

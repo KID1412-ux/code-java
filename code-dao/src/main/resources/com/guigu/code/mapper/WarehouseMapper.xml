@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.code.mapper.WarehouseMapper">
+    <select id="queryGoodsWarehouseById" resultType="com.guigu.code.pojo.MyWarehouse" parameterType="Integer">
+        SELECT gw.`id`,g.`goods_name`,w.`warehouse_name`,gw.`goods_amount` FROM
+        `goods_warehouse` gw INNER JOIN `warehouse` w ON gw.`warehouse_id`=w.`id` INNER JOIN `goods` g ON g.id=gw.`goods_id` WHERE w.`id`=#{id}
+    </select>
+    <select id="querywarehouseEmployee" resultType="com.guigu.code.pojo.Employee">
+        SELECT e.*FROM `employee` e INNER JOIN `employee_post` ep ON e.`id`=ep.`employee_id` WHERE ep.`post_id`=4 AND e.`stats`=0
+    </select>
+</mapper>

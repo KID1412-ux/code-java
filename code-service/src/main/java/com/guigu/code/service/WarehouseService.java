@@ -1,12 +1,13 @@
 package com.guigu.code.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.guigu.code.pojo.Employee;
+import com.guigu.code.pojo.MyWarehouse;
 import com.guigu.code.pojo.Warehouse;
 
-/**
- * @Description
- * @Author KID1412
- * @Date 2021/5/19 16:29
- */
+import java.util.List;
+
 public interface WarehouseService extends IService<Warehouse> {
+    List<MyWarehouse> queryGoodsWarehouseById(Integer id);
+    List<Employee> querywarehouseEmployee();
 }

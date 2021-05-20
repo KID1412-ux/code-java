@@ -234,24 +234,37 @@ public class StockController {
      */
     @RequestMapping("updateGoodsStocks")
     public boolean updateGoodsStocks(@RequestBody List<GoodsWarehouse> list) {
+        List<Integer> ids = new ArrayList<>();
+        for (GoodsWarehouse warehouse : list) {
+            ids.add(warehouse.getGoodsId());
+        }
+        Collection<Goods> goods = this.goodsService.listByIds(ids);
+        QueryWrapper<Goods> wrapper = new QueryWrapper<>();
+        wrapper.eq("supplier_id", "0");
+        List<Goods> goodsList = this.goodsService.list(wrapper);
+        List<Integer> integers = new ArrayList<>();
+        for (Goods g : goodsList) {
+            for (Goods s : goods) {
+                if (g.getGoodsName().equals(s.getGoodsName())) {
+                    integers.add(g.getId());
+                    break;
+                }
+            }
+        }
         List<GoodsWarehouse> gWarehouses = new ArrayList<>();
-        for (GoodsWarehouse gw : list) {
-            QueryWrapper<GoodsWarehouse> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("goods_id", gw.getGoodsId());
-            queryWrapper.eq("warehouse_id", gw.getWarehouseId());
-            List<GoodsWarehouse> gws = this.goodsWarehouseService.list(queryWrapper);
-            if (gws.size() > 0) {
-                GoodsWarehouse warehouse = gws.get(0);
-                gWarehouses.add(warehouse);
+        for (int i = 0; i < list.size(); i++) {
+            QueryWrapper<GoodsWarehouse> queryWrap = new QueryWrapper<GoodsWarehouse>();
+            queryWrap.eq("goods_id", integers.get(i));
+            queryWrap.eq("warehouse_id", list.get(i).getWarehouseId());
+            List<GoodsWarehouse> warehouses = this.goodsWarehouseService.list(queryWrap);
+            if (warehouses != null) {
+                 gWarehouses.add(warehouses.get(0));
             }
         }
         List<GoodsWarehouse> newGW = new ArrayList<>();
         for (GoodsWarehouse g : gWarehouses) {
-            if (g.getGoodsAmount() == null) {
-                g.setGoodsAmount(0);
-            }
             for (GoodsWarehouse w : list) {
-                if (g.getGoodsId() == w.getGoodsId() && g.getWarehouseId() == g.getWarehouseId()) {
+                if (g.getWarehouseId() == g.getWarehouseId()) {
                     int newAmount = g.getGoodsAmount() + w.getGoodsAmount();
                     GoodsWarehouse goodsWarehouse = new GoodsWarehouse();
                     goodsWarehouse.setId(g.getId());

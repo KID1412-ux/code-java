@@ -89,6 +89,7 @@ public class UserController {
         return users;
     }
 
+
     //商户申请
     @RequestMapping("merchantApply")
     public boolean merchantApply(Users user, MultipartFile fileObj1, MultipartFile fileObj2, HttpServletRequest request) {
@@ -116,9 +117,9 @@ public class UserController {
             String path = request.getServletContext().getRealPath("/img/users");
             try {
                 fileObj3.transferTo(new File(path, fileObj3.getOriginalFilename()));
-                user.setMerchantShopImage("img/users/" + fileObj3.getOriginalFilename());
+                user.setSupplierShopImage("img/users/" + fileObj3.getOriginalFilename());
                 fileObj4.transferTo(new File(path, fileObj4.getOriginalFilename()));
-                user.setMerchantPermitImage("img/users/" + fileObj4.getOriginalFilename());
+                user.setSupplierPermitImage("img/users/" + fileObj4.getOriginalFilename());
             } catch (IOException e) {
             }
         }
@@ -126,7 +127,22 @@ public class UserController {
         boolean result = this.userService.updateById(user);
         return result;
     }
-
+    //清除当前用户商户审核不通过日志
+    @RequestMapping("clearLogMerchant")
+    public boolean clearLogMerchant(Loginformation log) {
+        QueryWrapper<Loginformation> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("parent_id", log.getParentID());
+        queryWrapper.eq("log_type", "商户审核不通过");
+        return this.logInformationService.remove(queryWrapper);
+    }
+    //清除当前用户供应商审核不通过日志
+    @RequestMapping("clearLogSupplier")
+    public boolean clearLogSupplier(Loginformation log) {
+        QueryWrapper<Loginformation> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("parent_id", log.getParentID());
+        queryWrapper.eq("log_type", "供应商审核不通过");
+        return this.logInformationService.remove(queryWrapper);
+    }
     /*通过商户审核*/
     @RequestMapping("pass")
     public String pass(Integer id) {

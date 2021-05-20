@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.code.mapper.ShopCartMapper">
     <select id="query" parameterType="com.guigu.code.pojo.MyShopCart" resultType="com.guigu.code.pojo.MyShopCart">
-        SELECT sc.*, g.`goods_name`, g.`image_url`, gw.`goods_amount` FROM `shop_cart` sc
+        SELECT sc.*, g.`goods_name`, g.`image_url`, SUM(gw.`goods_amount`) AS goods_amount FROM `shop_cart` sc
         LEFT JOIN `goods` g ON sc.`goods_id` = g.`id`
         LEFT JOIN `goods_warehouse` gw ON g.`id` = gw.`goods_id`
         <where>
@@ -11,6 +11,7 @@
                 AND g.`goods_name` LIKE CONCAT('%', #{goodsName}, '%')
             </if>
         </where>
+        GROUP BY gw.`goods_id`
         ORDER BY sc.`id` DESC
     </select>
     <select id="count" parameterType="com.guigu.code.pojo.MyShopCart" resultType="integer">

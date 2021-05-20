@@ -15,4 +15,17 @@ SELECT d.`id` id,c.`car_name` carName,e.`employee_name` employeeName,d.`begin_ti
     <select id="queryDriver" resultType="com.guigu.code.pojo.Driver">
         SELECT e.`id` id,e.`employee_name` name FROM `employee` e INNER JOIN `employee_post` ep ON e.`id`=ep.`employee_id` INNER JOIN `post` p ON p.`id`=ep.`post_id` WHERE p.`post_name`='司机' AND e.`stats`=0
     </select>
+
+    <select id="queryDeliveryById" resultType="com.guigu.code.pojo.MyDelivery" parameterType="Integer">
+        SELECT d.`id` id,c.`car_name` carName,e.`employee_name` employeeName,d.`begin_time` beginTime,d.`amount` amount,`delivery_stats` deliveryStats  FROM `delivery` d INNER JOIN `car` c ON d.`car_id`=c.`id` INNER JOIN `employee` e ON d.`driver_id`=e.`id`
+        where d.`id`=#{id}
+    </select>
+
+    <select id="queryCount" resultType="com.guigu.code.pojo.Count" parameterType="integer">
+        SELECT md.`goods_id` id, SUM(md.`goods_amount`) count FROM `delivery_detail` dd INNER JOIN `merchant_order` mo ON dd.`merchant_order_id` = mo.`id` INNER JOIN `merchant_order_detail` md ON mo.`id` = md.`merchant_order_id` WHERE dd.`delivery_id` = #{id} GROUP BY md.`goods_id`
+    </select>
+
+    <select id="queryOneCount" resultType="com.guigu.code.pojo.Count" parameterType="integer">
+        SELECT `goods_warehouse`.`goods_id`, SUM(`goods_warehouse`.`goods_amount`) FROM `goods_warehouse` WHERE `goods_warehouse`.`goods_id` = #{id} GROUP BY `goods_warehouse`.`goods_id`
+    </select>
 </mapper>
